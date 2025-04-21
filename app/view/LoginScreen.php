@@ -30,7 +30,7 @@
                         <button type="submit" class="login-button">Iniciar sesión</button>
                         <div class="register-link">
                             <span>No tienes cuenta?</span>
-                            <a href="register.html">Registrate</a>
+                            <a href="RegisterScreen.php">Registrate</a>
                         </div>
                     </form>
                 </div>
