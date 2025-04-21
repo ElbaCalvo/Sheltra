@@ -1,0 +1,10 @@
+{
+    "name": "elbac/sheltra",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Config\\": "config/"
+        }
+    },
+    "require": {}
+}
