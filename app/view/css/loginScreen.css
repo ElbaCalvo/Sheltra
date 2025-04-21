@@ -1,0 +1,125 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+header {
+    padding: 1rem 2rem;
+    border-bottom: 4px solid #94BA77;
+}
+
+.logo {
+    height: 60px;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+}
+
+.login-box {
+    background-color: #fff;
+    border-radius: 8px;
+    width: 700px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.login-content {
+    display: flex;
+}
+
+.form-side {
+    background-color: #F1F8EC;
+    padding: 2.5rem;
+    width: 50%;
+    border: solid 2.5px #4C6E31;
+    border-radius: 12px 0 0 12px;
+    border-right: none;
+}
+
+.welcome-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../img/img-login.png');
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+    padding: 2.5rem;
+    width: 50%;
+    height: 100%;
+    position: relative;
+    border: solid 2.5px #4C6E31;
+    border-radius: 0 12px 12px 0;
+    min-height: 272px;
+}
+
+.welcome-side::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+}
+
+.login-button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #94BA77;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 1.5rem 0;
+}
+
+.register-link {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.register-link a {
+    color: #6200EA;
+    text-decoration: none;
+    margin-left: 0.5rem;
+}
+
+h2 {
+    margin: 0;
+    color: #212121;
+    font-size: 1.8rem;
+    text-align: center;
+    z-index: 2;
+}
