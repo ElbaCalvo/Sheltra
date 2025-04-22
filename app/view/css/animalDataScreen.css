@@ -1,0 +1,139 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+header {
+    padding: 1rem 2rem;
+    border-bottom: 4px solid #94BA77;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1500px;
+    margin: 0 20px;
+}
+
+.logo {
+    height: 60px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.upload-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+}
+
+.upload-form {
+    background-color: #F1F8EC;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 2.5px solid #4C6E31;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;  /* Reduced from 2rem */
+    margin: 0;  /* Reset any margin */
+}
+
+.form-group {
+    margin: 0 0 1rem 0;  /* Only bottom margin */
+    padding: 0;  /* Reset any padding */
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    margin: 0;  /* Reset any margin */
+}
+
+.form-select {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    appearance: auto;
+}
+
+textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.date-input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.readonly-input {
+    width: 100%;
+    padding: 0.5rem 0.8rem;
+    border: 2px solid #c4c4c4;
+    border-radius: 10px;
+    box-sizing: border-box;
+    background-color: #f5f5f5;
+    cursor: not-allowed;
+}
+
+.upload-button {
+    width: 100%;
+    padding: 0.7rem;
+    background-color: #94BA77;
+    color: #333;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 1rem;
+}
+
+.upload-button:hover {
+    background-color: #86aa6a;
+}
