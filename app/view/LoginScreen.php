@@ -10,7 +10,9 @@
 
 <body>
     <header>
-        <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+        <div class="header-content">
+            <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+        </div>
     </header>
 
     <div class="login-container">

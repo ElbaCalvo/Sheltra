@@ -13,8 +13,8 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 1450px;
+    margin: 0 30px;
 }
 
 .logo {

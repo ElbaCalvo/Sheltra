@@ -10,6 +10,14 @@ header {
     border-bottom: 4px solid #94BA77;
 }
 
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1450px;
+    margin: 0 30px;
+}
+
 .logo {
     height: 60px;
 }
