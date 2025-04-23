@@ -1,0 +1,322 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    padding: 1rem 2rem;
+    border-bottom: 4px solid #94BA77;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width:1700px;
+    margin: 0 30px;
+}
+
+.logo {
+    height: 60px;
+}
+
+.auth-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.auth-buttons button {
+    padding: 0.5rem 1.5rem;
+    border-radius: 15px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.sign-in {
+    background: none;
+    border: 2px solid #94BA77;
+    color: #333;
+}
+
+.register {
+    background: #94BA77;
+    border: none;
+    color: #333;
+}
+
+.hero {
+    height: 425px;
+    width: 100%;
+    background-image: url('../../../img/home-screen-img.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    color: white;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.adopt-button {
+    padding: 0.7rem 2rem;
+    background: #2C2C2C;
+    border: none;
+    border-radius: 15px;
+    color: #e0e0e0;
+    border: solid 2px #e0e0e0;
+    font-size: 0.9rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.latest-additions {
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.latest-additions-h2 {
+    color: #94BA77;
+    margin-bottom: 3rem;
+    margin-left: 14.5rem;
+    font-size: 1.8rem;
+}
+
+.animals-grid {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    margin: 2rem 0;
+}
+
+.animal-card {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.animal-image {
+    width: 200px;
+    height: 200px;
+    background-color: #f5f5f5;
+    margin-bottom: 1rem;
+}
+
+.paw-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #94BA77;
+    border-radius: 50%;
+}
+
+h3 {
+    margin: 0;
+    color: #333;
+    font-size: 1.1rem;
+}
+
+.animal-type {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 35px;
+}
+
+.view-more {
+    padding: 0.5rem 1.5rem;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    height: 30px;
+}
+
+.ideal-companion-h2 {
+    color: #94BA77;
+    margin-bottom: 3rem;
+    margin-left: 21.5rem;
+    font-size: 1.8rem;
+}
+
+.ideal-companion {
+    background: #fff;
+    position: relative;
+}
+
+.companion-grid {
+    max-width: 782px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 250px);
+    grid-template-rows: repeat(5, 100px);
+    gap: 1rem;
+    grid-template-areas: 
+        "gatos perros aves"
+        "gatos perros aves"
+        "gatos reptiles aves"
+        "peces reptiles roedores"
+        "peces reptiles roedores";
+}
+
+.companion-card:nth-child(1) { grid-area: gatos; }
+.companion-card:nth-child(2) { grid-area: perros; }
+.companion-card:nth-child(3) { grid-area: aves; }
+.companion-card:nth-child(4) { grid-area: peces; }
+.companion-card:nth-child(5) { grid-area: reptiles; }
+.companion-card:nth-child(6) { grid-area: roedores; }
+
+.companion-card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+
+}
+
+.companion-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.companion-card span {
+    position: absolute;
+    bottom: 1rem;
+    left: 1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.border-line {
+    height: 6px;
+    background-color: #E5ECCA;
+    width: 100%;
+}
+
+.border-line.top {
+    margin-bottom: 7rem;
+    margin-top: 2rem;
+}
+
+.border-line.bottom {
+    margin-top: 7rem;
+    margin-bottom: 2rem;
+}
+
+.donations-section {
+    padding: 4rem 2rem;
+    width: 950px;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+}
+
+.donations-card {
+    height: 260px;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.donations-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../../..//img/donation.jpg');
+    background-size: contain;
+    background-position: right;
+    filter: grayscale(100%);
+}
+
+.donations-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, 
+        #E3E9EF 0%,
+        #E3E9EF 40%,
+        #e3e9eff2 60%,
+        #e3e9efcc 70%,
+        #e3e9ef66 80%,
+        transparent 90%
+    );
+}
+
+.donations-content {
+    position: relative;
+    z-index: 1;
+    margin: 4rem;
+    width: 60%;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.donations-content h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.donations-content h3 {
+    margin-bottom: 1rem;
+}
+
+.donations-content a {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.conocer-mas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 1rem;
+    border-radius: 10px;
+    background: transparent;
+    padding: 0.8rem 2rem;
+    border: 1px solid #141414;
+    color: #141414;
+}
