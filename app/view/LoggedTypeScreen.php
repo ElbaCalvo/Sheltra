@@ -23,7 +23,7 @@
     <div class="animal-type-header">
         <img src="../../img/birds-banner.jpg" alt="Birds" class="banner-image">
     </div>
-    
+
     <h2>Tipo</h2>
 
     <div class="animals-grid">
@@ -41,3 +41,5 @@
 </body>
 
 </html>
+
+<?php include 'Footer.php'; ?>

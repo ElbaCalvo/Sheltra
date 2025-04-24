@@ -95,17 +95,19 @@
     </section>
 
     <section class="donations-section">
-    <div class="donations-card">
-        <div class="donations-content">
-            <h1 class="donations-label">DONACIONES</h1>
-            <h2>No puedes adoptar un animal? </h2>
-            <h3>No te preocupes, puedes ayudar igualmente, accede a este apartado para descubrir más</h3>
-            <a href="#" class="Donar">
-                Donar
-            </a>
+        <div class="donations-card">
+            <div class="donations-content">
+                <h1 class="donations-label">DONACIONES</h1>
+                <h2>No puedes adoptar un animal? </h2>
+                <h3>No te preocupes, puedes ayudar igualmente, accede a este apartado para descubrir más</h3>
+                <a href="#" class="Donar">
+                    Donar
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 </body>
 
 </html>
+
+<?php include 'Footer.php'; ?>
