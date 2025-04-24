@@ -1,7 +1,7 @@
 <h1 align="center">Sheltra Web</h1>
 <br>
 
-![EasyBite-Github](https://raw.githubusercontent.com/ElbaCalvo/Sheltra/refs/heads/main/doc/sheltra-banner.png?token=GHSAT0AAAAAADCQ6FIW2X2A26E3Q7UGIQDM2AHNYYQ)
+![Sheltra-Github](https://raw.githubusercontent.com/ElbaCalvo/Sheltra/refs/heads/main/doc/sheltra-banner.png?token=GHSAT0AAAAAADCQ6FIXUBPUPBKCZ5Y7XKXM2AKF3CQ)
 <br>
 <h3 align="center">🐕 “Cada vida cuenta, desde el pico hasta la cola” 🐈‍⬛</h3>
 <br>
