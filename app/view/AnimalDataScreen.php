@@ -1,27 +1,87 @@
 <?php
 session_start();
+require_once "../../app/model/Animal.php";
+require_once "../../config/dbConnection.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: LoginScreen.php");
     exit();
 }
 
-$host = 'localhost';
-$dbname = 'sheltra';
-$username = 'root';
-$password = '';
+$errors = [];
+$success = false;
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+    $pdo = getDBConnection();
+    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = :user_id");
     $stmt->bindParam(':user_id', $_SESSION['user_id']);
     $stmt->execute();
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
 } catch (PDOException $e) {
-    die("Error al conectar con la base de datos: " . $e->getMessage());
+    die("Error al obtener los datos del usuario: " . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    try {
+        $pdo = getDBConnection();
+
+        $animal = new Animal($pdo);
+
+        $animal->name = trim($_POST['nombre']);
+        $animal->type = trim($_POST['tipo']);
+        $animal->age = trim($_POST['edad']);
+        $animal->sex = trim($_POST['sexo']);
+        $animal->size = trim($_POST['tamano']);
+        $animal->description = trim($_POST['descripcion']);
+        $animal->foto = trim($_POST['foto']);
+        $animal->entry_date = trim($_POST['fecha_ingreso']);
+        $animal->state = trim($_POST['estado']);
+
+        if (empty($animal->name)) {
+            $errors['nombre'] = "El nombre del animal es obligatorio.";
+        }
+        if (empty($animal->type)) {
+            $errors['tipo'] = "El tipo de animal es obligatorio.";
+        }
+        if (empty($animal->age)) {
+            $errors['edad'] = "La edad del animal es obligatoria.";
+        }
+        if (empty($animal->sex)) {
+            $errors['sexo'] = "El sexo del animal es obligatorio.";
+        }
+        if (empty($animal->size)) {
+            $errors['tamano'] = "El tamaño del animal es obligatorio.";
+        }
+        if (empty($animal->entry_date)) {
+            $errors['fecha_ingreso'] = "La fecha de ingreso es obligatoria.";
+        }
+        if (empty($animal->state)) {
+            $errors['estado'] = "El estado de adopción es obligatorio.";
+        }
+        if(empty($animal->foto)) {
+            $errors['foto'] = "La foto del animal es obligatoria.";
+        } elseif (!filter_var($animal->foto, FILTER_VALIDATE_URL)) {   
+            $errors['foto'] = "La URL de la foto no es válida.";
+        }
+        if (empty($animal->description)) {
+            $errors['descripcion'] = "La descripción del animal es obligatoria.";
+        } elseif (strlen($animal->description) > 500) {
+            $errors['descripcion'] = "La descripción no puede exceder los 500 caracteres.";
+        }
+
+        if (empty($errors)) {
+            if ($animal->addAnimal()) {
+                $success = true;
+                $_SESSION['success'] = "El animal se ha subido correctamente.";
+                header("Location: AnimalDataScreen.php");
+                exit();
+            } else {
+                $errors['general'] = "Hubo un error al subir el animal. Inténtalo de nuevo.";
+            }
+        }
+    } catch (PDOException $e) {
+        $errors['general'] = "Error al conectar con la base de datos: " . $e->getMessage();
+    }
 }
 ?>
 
@@ -53,7 +113,7 @@ try {
     <div class="upload-container">
         <h2>Subir animal</h2>
         <div class="upload-form">
-            <form action="upload_animal.php" method="POST">
+            <form action="AnimalDataScreen.php" method="POST">
                 <div class="form-row">
                     <div class="form-group">
                         <label>Nombre</label>
