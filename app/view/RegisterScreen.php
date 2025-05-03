@@ -1,6 +1,8 @@
 <?php
 
 session_start();
+require_once "../../app/model/User.php";
+require_once "../../config/dbConnection.php";
 
 // Configuración de la base de datos
 $host = 'localhost';
@@ -65,28 +67,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['dni'] = "El DNI debe tener 8 números seguidos de una letra.";
     }
 
-    // Si no hay errores, procesar el registro
     if (empty($errors)) {
-        // Verificar si el correo ya está registrado
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         if ($stmt->rowCount() > 0) {
             $errors['email'] = "El correo electrónico ya está registrado.";
         } else {
-            // Encriptar la contraseña
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            $user = new User();
+            $user->setUsername($username);
+            $user->setEmail($email);
+            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
+            $user->setDni($dni);
+            $user->setPhone($phone);
 
-            // Insertar el usuario en la base de datos
-            $stmt = $pdo->prepare("INSERT INTO users (username, phone, email, password, dni) VALUES (:username, :phone, :email, :password, :dni)");
-            $stmt->bindParam(':username', $username);
-            $stmt->bindParam(':phone', $phone);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $hashed_password);
-            $stmt->bindParam(':dni', $dni);
-
-            if ($stmt->execute()) {
-                // Registro exitoso, redirigir al login
+            if ($user->addUser()) {
                 $_SESSION['success'] = "Registro exitoso. Ahora puedes iniciar sesión.";
                 header("Location: LoginScreen.php");
                 exit();

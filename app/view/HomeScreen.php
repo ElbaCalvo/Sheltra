@@ -11,7 +11,9 @@
 <body>
     <header>
         <div class="header-content">
-            <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            <a href="HomeScreen.php">
+                <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            </a>
             <div class="auth-buttons">
                 <button class="sign-in">Sign in</button>
                 <button class="register">Register</button>

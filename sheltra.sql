@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-04-2025 a las 11:11:32
+-- Tiempo de generación: 03-05-2025 a las 18:54:47
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -107,10 +107,39 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL,
   `DNI` varchar(9) NOT NULL,
   `phone` int(9) NOT NULL,
-  `bank_acc` int(16) NOT NULL,
-  `CVV` int(3) NOT NULL,
-  `exp_date` date NOT NULL
+  `address` varchar(255) NOT NULL,
+  `bank_acc` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `users`
+--
+
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `DNI`, `phone`, `address`, `bank_acc`) VALUES
+(1, 'Lua', 'lua@gmail.com', '$2y$10$sHFYY94N.JkGwONB61zjIeXmGL939aa2.XyM2Z6q0MqmUxRq/2x4.', '12345678K', 123456789, 'Calle Lua, 44', 'ES98 7654 3219 8765 4321'),
+(2, 'Vega', 'vega@gmail.com', '$2y$10$RBR6M9v40Xx7HSThTlyAAu/eVC8soHu.6S5do5qxGLn1UC98Lzrxy', '98765432S', 987654321, 'Calle Vega, 33', 'ES12 3456 7891 2345 6789'),
+(3, 'Sonia', 'sonia@gmail.com', '$2y$10$5dYH6jzgi7pxQD0YvcOci./3ZapZ52TmsJC2ucwExloVWX6MSKlRe', '33333333F', 333333333, 'Calle Sonia, 55', 'ES33 3333 3333 3333 3333'),
+(5, 'Lidia', 'lidia@gmail.com', '$2y$10$3GqcoJxcWMvDk.mPo/CJ/uoPWRvhXb7Cxdd12uXhsn4oiIAj94KGO', '11223344Q', 112233445, 'Calle Lidia, 77', 'ES12 1212 1212 1212 1212');
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
