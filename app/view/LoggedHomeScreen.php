@@ -1,3 +1,29 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: LoginScreen.php");
+    exit();
+}
+
+$host = 'localhost';
+$dbname = 'sheltra';
+$username = 'root';
+$password = '';
+
+try {
+    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
+    $stmt->bindParam(':user_id', $_SESSION['user_id']);
+    $stmt->execute();
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error al conectar con la base de datos: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -11,11 +37,15 @@
 <body>
     <header>
         <div class="header-content">
-            <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            <a href="LoggedHomeScreen.php">
+                <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            </a>
             <div class="user-info">
                 <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
-                <img src="../../img/user-icon.png" alt="User" class="user-icon">
-                <span>NombreUsuario</span>
+                <a href="EditProfileScreen.php">
+                    <img src="../../img/user-icon.png" alt="User" class="user-icon">
+                </a>
+                <span><?php echo htmlspecialchars($user['username'] ?? ''); ?></span>
             </div>
         </div>
     </header>

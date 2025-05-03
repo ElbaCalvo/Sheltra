@@ -1,6 +1,9 @@
 <?php
 session_start();
 
+require_once "../../app/model/User.php";
+require_once "../../config/dbConnection.php";
+
 $host = 'localhost';
 $dbname = 'sheltra';
 $username = 'root';
@@ -30,20 +33,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors['password'] = "La contraseña es obligatoria.";
     }
 
-    // Si no hay errores, procesar el login
     if (empty($errors)) {
-        // Buscar el usuario en la base de datos
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = new User();
+        $user->setEmail($email);
+        $user->setPassword($password);
 
-        if ($user && password_verify($password, $user['password'])) {
-            // Credenciales correctas, iniciar sesión
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['username'];
+        if ($user->checkUsuario()) {
+            $_SESSION['user_id'] = $user->getId(); 
+            $_SESSION['user_name'] = $user->getUsername(); 
 
-            // Redirigir al dashboard o página principal
             header("Location: LoggedHomeScreen.php");
             exit();
         } else {

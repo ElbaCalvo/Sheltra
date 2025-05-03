@@ -11,11 +11,15 @@
 <body>
     <header>
         <div class="header-content">
-            <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            <a href="LoggedHomeScreen.php">
+                <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
+            </a>
             <div class="user-info">
                 <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
-                <img src="../../img/user-icon.png" alt="User" class="user-icon">
-                <span>NombreUsuario</span>
+                <a href="EditProfileScreen.php">
+                    <img src="../../img/user-icon.png" alt="User" class="user-icon">
+                </a>
+                <span><?php echo htmlspecialchars($user['username'] ?? ''); ?></span>
             </div>
         </div>
     </header>
