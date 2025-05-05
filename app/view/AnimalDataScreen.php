@@ -169,16 +169,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>Sexo</label>
                         <select name="sexo" class="form-select">
-                            <option value="M">Macho</option>
-                            <option value="H">Hembra</option>
+                            <option value="Macho">Macho</option>
+                            <option value="Hembra">Hembra</option>
                         </select>
                     </div>
                     <div class="form-group">
                         <label>Tamaño</label>
                         <select name="tamano" class="form-select">
-                            <option value="pequeno">Pequeño</option>
-                            <option value="mediano">Mediano</option>
-                            <option value="grande">Grande</option>
+                            <option value="Pequeno">Pequeño</option>
+                            <option value="Mediano">Mediano</option>
+                            <option value="Grande">Grande</option>
                         </select>
                     </div>
                 </div>
@@ -187,12 +187,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>Tipo</label>
                         <select name="tipo" class="form-select">
-                            <option value="gato">Gato</option>
-                            <option value="perro">Perro</option>
-                            <option value="ave">Ave</option>
-                            <option value="roedor">Roedor</option>
-                            <option value="reptil">Reptil</option>
-                            <option value="pez">Pez</option>
+                            <option value="Gato">Gato</option>
+                            <option value="Perro">Perro</option>
+                            <option value="Ave">Ave</option>
+                            <option value="Roedor">Roedor</option>
+                            <option value="Reptil">Reptil</option>
+                            <option value="Pez">Pez</option>
                         </select>
                     </div>
                     <div class="form-group">

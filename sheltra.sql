@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-05-2025 a las 18:54:47
+-- Tiempo de generación: 05-05-2025 a las 12:00:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,16 +29,27 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `animals` (
   `id` int(11) NOT NULL,
-  `name` int(255) NOT NULL,
-  `type` int(255) NOT NULL,
-  `age` int(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `age` varchar(255) NOT NULL,
   `sex` varchar(255) NOT NULL,
-  `size` int(255) NOT NULL,
+  `size` varchar(255) NOT NULL,
   `description` varchar(225) NOT NULL,
   `foto` varchar(225) NOT NULL,
   `entry_date` date NOT NULL,
   `state` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `animals`
+--
+
+INSERT INTO `animals` (`id`, `name`, `type`, `age`, `sex`, `size`, `description`, `foto`, `entry_date`, `state`) VALUES
+(5, 'Nube', 'Roedor', '1', 'Hembra', 'Grande', 'Nube es un conejo juguetón y curioso. Le encanta explorar y comer zanahorias. Es ideal para familias con niños pequeños.', 'https://content.elmueble.com/medio/2025/03/18/conejo-enano-belier_0c663703_250318172443_900x900.webp', '2025-05-05', 'Adopción activa'),
+(6, 'Luna', 'Gato', '3', 'Hembra', 'Pequeno', 'Luna es una gata juguetona y curiosa. Le encanta perseguir luces y descansar en lugares altos. Es ideal para familias que buscan una mascota activa y cariñosa.', 'https://www.zooplus.es/magazine/wp-content/uploads/2022/01/Psicologia-felina.jpeg', '2025-05-05', 'Adopción activa'),
+(7, 'Max', 'Perro', '4', 'Macho', 'Mediano', 'Max es un perro leal y protector. Le encanta jugar al aire libre y es perfecto para familias activas que buscan un compañero energético.', 'https://panchoskitchen.com/cdn/shop/articles/perro-con-la-lengua-afuera-mirando-hacia-arriba.png?v=1677637524', '2025-05-05', 'Adopción activa'),
+(8, 'Simba', 'Gato', '7', 'Macho', 'Mediano', 'Simba es un gato curioso y juguetón. Le encanta explorar y es ideal para hogares que buscan una mascota activa y divertida.', 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg', '2025-05-05', 'Adopción activa'),
+(9, 'Shelly', 'Reptil', '10', 'Hembra', 'Grande', 'Shelly es una tortuga tranquila y fácil de cuidar. Es perfecta para personas que buscan una mascota de bajo mantenimiento.', 'https://cdn0.expertoanimal.com/es/posts/6/3/3/especies_de_tortugas_de_tierra_20336_600.webp', '2025-05-05', 'Adopción activa');
 
 -- --------------------------------------------------------
 
@@ -126,6 +137,12 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `DNI`, `phone`, `add
 --
 
 --
+-- Indices de la tabla `animals`
+--
+ALTER TABLE `animals`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `users`
 --
 ALTER TABLE `users`
@@ -134,6 +151,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT de las tablas volcadas
 --
+
+--
+-- AUTO_INCREMENT de la tabla `animals`
+--
+ALTER TABLE `animals`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `users`

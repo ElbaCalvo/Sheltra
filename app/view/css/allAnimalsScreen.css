@@ -84,16 +84,19 @@ h2 {
 }
 
 .animals-grid {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+    width: 80%;
+    margin: 60px auto;
     justify-content: center;
-    gap: 4rem;
-    margin: 2rem 0;
 }
 
 .animal-card {
     display: flex;
     flex-direction: column;
-    width: 200px;
+    max-width: 250px;
+    margin: 0 auto;
 }
 
 .animal-image {
@@ -155,7 +158,9 @@ h2 {
     padding: 2rem;
 }
 
-.favorites-container {
+.animals-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 2rem; 
 }

@@ -27,7 +27,7 @@
             <p>Nos dedicamos a dar una nueva oportunidad a cada animal, brindándoles<br>
                 un hogar lleno de amor y cuidado. Ayúdanos a transformar vidas a través<br>
                 de la adopción responsable.</p>
-            <button class="adopt-button">Adopta ahora</button>
+                <a href="AllAnimalsScreen.php" class="adopt-button">Adopta ahora</a>
         </div>
     </section>
 

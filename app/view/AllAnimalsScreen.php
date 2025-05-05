@@ -1,3 +1,20 @@
+<?php
+require_once "../../config/dbConnection.php";
+require_once "../../app/model/Animal.php";
+
+try {
+    // Crear conexión a la base de datos
+    $pdo = getDBConnection();
+
+    // Consultar todos los animales
+    $stmt = $pdo->prepare("SELECT * FROM animals");
+    $stmt->execute();
+    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error al obtener los animales: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -24,19 +41,21 @@
     <div class="page-content">
         <div class="side-panel"></div>
         <div class="main-content">
-            <div class="favorites-container">
+            <div class="animals-container">
                 <h2>Todos nuestros animales</h2>
 
                 <div class="animals-grid">
-                    <div class="animal-card">
-                        <img src="../../img/placeholder.png" alt="Animal" class="animal-image">
-                        <h3>Nombre del animal</h3>
-                        <p>Tipo de animal</p>
-                        <div class="card-footer">
-                            <button class="view-more">Ver más</button>
-                            <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    <?php foreach ($animals as $animal): ?>
+                        <div class="animal-card">
+                        <img src="<?php echo htmlspecialchars($animal['foto']); ?>" alt="Animal" class="animal-image">
+                            <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
+                            <p><?php echo htmlspecialchars($animal['type']); ?></p>
+                            <div class="card-footer">
+                                <button class="view-more">Ver más</button>
+                                <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                            </div>
                         </div>
-                    </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
