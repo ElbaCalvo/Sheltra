@@ -118,7 +118,7 @@
                 <h1 class="donations-label">DONACIONES</h1>
                 <h2>No puedes adoptar un animal? </h2>
                 <h3>No te preocupes, puedes ayudar igualmente, accede a este apartado para descubrir más</h3>
-                <a href="#" class="Donar">
+                <a href="LoginScreen.php" class="Donar">
                     Donar
                 </a>
             </div>
