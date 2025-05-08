@@ -98,28 +98,40 @@ try {
         <h2 class="ideal-companion-h2">¿Cuál es tu compañero ideal?</h2>
         <div class="companion-grid">
             <div class="companion-card">
-                <img src="../../img/cats.jpg" alt="Gatos">
-                <span>Gatos</span>
+                <a href="LoggedTypeScreen.php?type=gato">
+                    <img src="../../img/cats.jpg" alt="Gatos">
+                    <span>Gatos</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/dogs.jpg" alt="Perros">
-                <span>Perros</span>
+                <a href="LoggedTypeScreen.php?type=perro">
+                    <img src="../../img/dogs.jpg" alt="Perros">
+                    <span>Perros</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/birds.jpg" alt="Aves">
-                <span>Aves</span>
+                <a href="LoggedTypeScreen.php?type=ave">
+                    <img src="../../img/birds.jpg" alt="Aves">
+                    <span>Aves</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/fishes.jpg" alt="Peces">
-                <span>Peces</span>
+                <a href="LoggedTypeScreen.php?type=pez">
+                    <img src="../../img/fishes.jpg" alt="Peces">
+                    <span>Peces</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/reptiles.jpg" alt="Reptiles">
-                <span>Reptiles</span>
+                <a href="LoggedTypeScreen.php?type=reptil">
+                    <img src="../../img/reptiles.jpg" alt="Reptiles">
+                    <span>Reptiles</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/rodents.jpg" alt="Roedores">
-                <span>Roedores</span>
+                <a href="LoggedTypeScreen.php?type=roedor">
+                    <img src="../../img/rodents.jpg" alt="Roedores">
+                    <span>Roedores</span>
+                </a>
             </div>
         </div>
         <div class="border-line bottom"></div>
