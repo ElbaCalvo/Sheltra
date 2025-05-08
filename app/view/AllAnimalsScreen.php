@@ -32,8 +32,12 @@ try {
                 <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
             </a>
             <div class="auth-buttons">
-                <button class="sign-in">Sign in</button>
-                <button class="register">Register</button>
+                <a href="LoginScreen.php">
+                    <button class="sign-in">Sign in</button>
+                </a>
+                <a href="RegisterScreen.php">
+                    <button class="register">Register</button>
+                </a>
             </div>
         </div>
     </header>

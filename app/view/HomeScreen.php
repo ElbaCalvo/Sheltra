@@ -15,8 +15,12 @@
                 <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
             </a>
             <div class="auth-buttons">
-                <button class="sign-in">Sign in</button>
-                <button class="register">Register</button>
+                <a href="LoginScreen.php">
+                    <button class="sign-in">Sign in</button>
+                </a>
+                <a href="RegisterScreen.php">
+                    <button class="register">Register</button>
+                </a>
             </div>
         </div>
     </header>
@@ -27,7 +31,7 @@
             <p>Nos dedicamos a dar una nueva oportunidad a cada animal, brindándoles<br>
                 un hogar lleno de amor y cuidado. Ayúdanos a transformar vidas a través<br>
                 de la adopción responsable.</p>
-                <a href="AllAnimalsScreen.php" class="adopt-button">Adopta ahora</a>
+            <a href="AllAnimalsScreen.php" class="adopt-button">Adopta ahora</a>
         </div>
     </section>
 
@@ -69,28 +73,40 @@
         <h2 class="ideal-companion-h2">¿Cuál es tu compañero ideal?</h2>
         <div class="companion-grid">
             <div class="companion-card">
-                <img src="../../img/cats.jpg" alt="Gatos">
-                <span>Gatos</span>
+                <a href="TypeScreen.php?type=gato">
+                    <img src="../../img/cats.jpg" alt="Gatos">
+                    <span>Gatos</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/dogs.jpg" alt="Perros">
-                <span>Perros</span>
+                <a href="TypeScreen.php?type=perro">
+                    <img src="../../img/dogs.jpg" alt="Perros">
+                    <span>Perros</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/birds.jpg" alt="Aves">
-                <span>Aves</span>
+                <a href="TypeScreen.php?type=ave">
+                    <img src="../../img/birds.jpg" alt="Aves">
+                    <span>Aves</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/fishes.jpg" alt="Peces">
-                <span>Peces</span>
+                <a href="TypeScreen.php?type=pez">
+                    <img src="../../img/fishes.jpg" alt="Peces">
+                    <span>Peces</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/reptiles.jpg" alt="Reptiles">
-                <span>Reptiles</span>
+                <a href="TypeScreen.php?type=reptil">
+                    <img src="../../img/reptiles.jpg" alt="Reptiles">
+                    <span>Reptiles</span>
+                </a>
             </div>
             <div class="companion-card">
-                <img src="../../img/rodents.jpg" alt="Roedores">
-                <span>Roedores</span>
+                <a href="TypeScreen.php?type=roedor">
+                    <img src="../../img/rodents.jpg" alt="Roedores">
+                    <span>Roedores</span>
+                </a>
             </div>
         </div>
         <div class="border-line bottom"></div>
