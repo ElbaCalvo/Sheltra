@@ -71,7 +71,11 @@ try {
                                 <img src="<?php echo htmlspecialchars($shelter['foto'] ?? '../../img/placeholder.png'); ?>" alt="<?php echo htmlspecialchars($shelter['name']); ?>">
                             </div>
                             <h3><?php echo htmlspecialchars($shelter['name']); ?></h3>
-                            <p><a href="<?php echo htmlspecialchars($shelter['web']); ?>" target="_blank">Página web</a></p> <button class="donate-button">Donar</button>
+                            <p><a href="<?php echo htmlspecialchars($shelter['web']); ?>" target="_blank">Página web</a></p>
+                            <form action="PaymentScreen.php" method="get" style="display:inline;">
+                                <input type="hidden" name="id_shelter" value="<?php echo htmlspecialchars($shelter['id']); ?>">
+                                <button class="donate-button" type="submit">Donar</button>
+                            </form>
                         </div>
                     <?php endforeach; ?>
                 <?php else: ?>
