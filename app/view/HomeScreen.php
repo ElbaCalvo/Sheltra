@@ -1,3 +1,15 @@
+<?php
+require_once "../../config/dbConnection.php";
+
+try {
+    $pdo = getDBConnection();
+    $stmt = $pdo->query("SELECT * FROM animals ORDER BY entry_date DESC LIMIT 3");
+    $latestAnimals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    die("Error al obtener los animales: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -38,33 +50,17 @@
     <section class="latest-additions">
         <h2 class="latest-additions-h2">Nuestras tres últimas incorporaciones</h2>
         <div class="animals-grid">
-            <div class="animal-card">
-                <img src="../../img/placeholder.png" alt="Animal" class="animal-image">
-                <h3>Nombre del animal</h3>
-                <p>Tipo de animal</p>
-                <div class="card-footer">
-                    <button class="view-more">Ver más</button>
-                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+            <?php foreach ($latestAnimals as $animal): ?>
+                <div class="animal-card">
+                    <img src="<?php echo htmlspecialchars($animal['foto'] ?? '../../img/placeholder.png'); ?>" alt="Animal" class="animal-image">
+                    <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
+                    <p><?php echo ucfirst(htmlspecialchars($animal['type'])); ?></p>
+                    <div class="card-footer">
+                        <button class="view-more">Ver más</button>
+                        <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    </div>
                 </div>
-            </div>
-            <div class="animal-card">
-                <img src="../../img/placeholder.png" alt="Animal" class="animal-image">
-                <h3>Nombre de la animal</h3>
-                <p>Tipo de animal</p>
-                <div class="card-footer">
-                    <button class="view-more">Ver más</button>
-                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
-                </div>
-            </div>
-            <div class="animal-card">
-                <img src="../../img/placeholder.png" alt="Animal" class="animal-image">
-                <h3>Nombre de la animal</h3>
-                <p>Tipo de animal</p>
-                <div class="card-footer">
-                    <button class="view-more">Ver más</button>
-                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
-                </div>
-            </div>
+            <?php endforeach; ?>
         </div>
     </section>
 
