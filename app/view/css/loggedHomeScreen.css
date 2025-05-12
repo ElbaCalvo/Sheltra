@@ -38,6 +38,7 @@ header {
     height: 40px;
 }
 
+
 .hero {
     height: 425px;
     width: 100%;
@@ -96,6 +97,34 @@ header {
     margin: 0 auto;
 }
 
+.latest-additions .animal-card {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    padding: 20px;
+    border: 2px solid #94BA77;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.latest-additions .animal-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.latest-additions .animal-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 18px;
+    transition: border-radius 0.2s;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #94BA77;
+}
+
 .latest-additions-h2 {
     color: #94BA77;
     margin-bottom: 3rem;
@@ -109,19 +138,6 @@ header {
     margin: 2rem 0;
 }
 
-.animal-card {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-}
-
-.animal-image {
-    width: 200px;
-    height: 200px;
-    background-color: #f5f5f5;
-    margin-bottom: 1rem;
-}
-
 .paw-icon {
     width: 30px;
     height: 30px;
@@ -130,9 +146,16 @@ header {
 }
 
 h3 {
-    margin: 0;
     color: #333;
     font-size: 1.1rem;
+    margin-top: 20px;
+    margin-bottom: 0.5rem;
+}
+
+.animal-card p {
+    color: #333;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
 }
 
 .animal-type {
