@@ -59,7 +59,7 @@ try {
             <p>Nos dedicamos a dar una nueva oportunidad a cada animal, brindándoles<br>
                 un hogar lleno de amor y cuidado. Ayúdanos a transformar vidas a través<br>
                 de la adopción responsable.</p>
-                <a href="LoggedAllAnimalsScreen.php" class="adopt-button">Adopta ahora</a>
+            <a href="LoggedAllAnimalsScreen.php" class="adopt-button">Adopta ahora</a>
         </div>
     </section>
 
@@ -72,7 +72,10 @@ try {
                     <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
                     <p><?php echo ucfirst(htmlspecialchars($animal['type'])); ?></p>
                     <div class="card-footer">
-                        <button class="view-more">Ver más</button>
+                        <form action="AdoptScreen.php" method="get" style="display:inline;">
+                            <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                            <button class="view-more" type="submit">Ver más</button>
+                        </form>
                         <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                     </div>
                 </div>

@@ -74,14 +74,16 @@ try {
         <?php if (!empty($animals)): ?>
             <?php foreach ($animals as $animal): ?>
                 <div class="animal-card">
-                <img src="<?php echo htmlspecialchars($animal['foto']); ?>" alt="Animal" class="animal-image">
-                <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
-                <div class="card-footer">
-                    <button class="view-more">Ver más</button>
-                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    <img src="<?php echo htmlspecialchars($animal['foto']); ?>" alt="Animal" class="animal-image">
+                    <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
+                    <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
+                    <div class="card-footer">
+                        <form action="AdoptScreen.php" method="get" style="display:inline;">
+                            <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                            <button class="view-more" type="submit">Ver más</button>
+                        </form> <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    </div>
                 </div>
-            </div>
             <?php endforeach; ?>
         <?php else: ?>
             <p>No hay animales disponibles de este tipo en este momento.</p>
