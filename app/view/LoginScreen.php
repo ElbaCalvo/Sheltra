@@ -10,31 +10,19 @@ $username = 'root';
 $password = '';
 
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = getDBConnection();
 } catch (PDOException $e) {
     die("Error al conectar con la base de datos: " . $e->getMessage());
 }
-
-$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = trim($_POST['email']);
     $password = trim($_POST['password']);
 
-    // Validar campos vacíos
-    if (empty($email)) {
-        $errors['email'] = "El correo electrónico es obligatorio.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "El correo electrónico no es válido.";
-    }
-
-    if (empty($password)) {
-        $errors['password'] = "La contraseña es obligatoria.";
-    }
+    $user = new User($pdo);
+    $errors = $user->validateLogin($email, $password);
 
     if (empty($errors)) {
-        $user = new User();
         $user->setEmail($email);
         $user->setPassword($password);
 

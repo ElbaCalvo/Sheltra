@@ -1,53 +1,39 @@
 <?php
 session_start();
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/Donations.php";
+require_once "../../app/model/User.php";
+require_once "../../app/model/Payment.php";
 
-// Verifica que el usuario esté logueado
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesión
     header("Location: LoginScreen.php");
     exit();
 }
 
 $errors = [];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $amount = $_POST['amount'] ?? '';
+try {
+    $pdo = getDBConnection();
+    $userModel = new User($pdo);
+    $user = $userModel->getUserById($_SESSION['user_id']);
+} catch (PDOException $e) {
+    die("Error al obtener los datos: " . $e->getMessage());
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Procesar el formulario
+    $payment = new Payment($pdo);
+    $data = [
+        'amount' => $_POST['amount'] ?? '',
+        'card_number' => $_POST['card_number'] ?? '',
+        'expiry' => $_POST['expiry'] ?? '',
+        'cvv' => $_POST['cvv'] ?? ''
+    ];
     $id_shelter = $_POST['id_shelter'] ?? $_GET['id_shelter'] ?? '';
-    $card_number = $_POST['card_number'] ?? '';
-    $expiry = $_POST['expiry'] ?? '';
-    $cvv = $_POST['cvv'] ?? '';
 
-    $iban_pattern = '/^ES\d{2}(?:\s?\d{4}){5}$/';
-
-    if ($amount <= 0) {
-        $errors['amount'] = "Introduce una cantidad válida.";
-    }
-    if (!preg_match($iban_pattern, $card_number)) {
-        $errors['card_number'] = "El número de cuenta debe ser un IBAN español válido.";
-    }
-    if (!preg_match('/^\d{3,4}$/', $cvv)) {
-        $errors['cvv'] = "El CVV debe tener 3 o 4 dígitos.";
-    }
-
-    if (preg_match('/^(0[1-9]|1[0-2])\/\d{2}$/', $expiry, $matches)) {
-        $month = (int)substr($expiry, 0, 2);
-        $year = (int)substr($expiry, 3, 2) + 2000;
-        $now = new DateTime();
-        $exp = DateTime::createFromFormat('Y-m', "$year-$month");
-        $exp->modify('last day of this month');
-        if ($exp < $now) {
-            $errors['expiry'] = "La fecha de caducidad no puede ser anterior a la actual.";
-        }
-    } else {
-        $errors['expiry'] = "Formato de fecha de caducidad inválido. Usa MM/YY.";
-    }
+    $errors = $payment->validate($data);
 
     if (empty($errors) && !empty($id_shelter)) {
         try {
-            $pdo = getDBConnection();
-            $donations = new Donations($pdo);
-            $result = $donations->create($_SESSION['user_id'], $id_shelter, $amount);
+            $result = $payment->saveDonation($_SESSION['user_id'], $id_shelter, $data['amount']);
             if ($result) {
                 header("Location: PaymentScreen.php?success=1&id_shelter=" . urlencode($id_shelter));
                 exit();

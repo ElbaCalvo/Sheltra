@@ -13,72 +13,61 @@ $success = false;
 
 $pdo = getDBConnection();
 
-$user_id = $_SESSION['user_id'];
-$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$userModel = new User($pdo);
+$user = $userModel->getUserById($_SESSION['user_id']);
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $user = new User();
-    $user->setUsername(trim($_POST['username']));
-    $user->setEmail(trim($_POST['email']));
-    $user->setDni(trim($_POST['dni']));
-    $user->setPhone(trim($_POST['phone']));
-    $user->setAddress(trim($_POST['address']));
-    $user->setBankAccount(trim($_POST['bank_acc']));
+    $username = trim($_POST['username']);
+    $email = trim($_POST['email']);
+    $dni = trim($_POST['dni']);
+    $phone = trim($_POST['phone']);
+    $password = trim($_POST['password'] ?? '');
+    $confirm_password = trim($_POST['confirm_password'] ?? '');
+    $address = trim($_POST['address'] ?? '');
 
+    $userObj = new User($pdo);
+    $userObj->setUsername($username);
+    $userObj->setEmail($email);
+    $userObj->setDni($dni);
+    $userObj->setPhone($phone);
+    $userObj->setPassword($password);
+    $userObj->setAddress($address);
 
-    if (!empty($_POST['password'])) {
-        $user->setPassword(trim($_POST['password']));
-    }
+    $errors = User::validateRegister($username, $phone, $email, $password, $confirm_password, $dni);
 
-    if (empty($user->getUsername())) {
-        $errors['username'] = "El nombre de usuario es obligatorio.";
-    }
-
-    if (empty($user->getEmail())) {
-        $errors['email'] = "El correo electrónico es obligatorio.";
-    } elseif (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "El correo electrónico no es válido.";
-    }
-
-    if (!empty($_POST['password']) && strlen($_POST['password']) < 8) {
-        $errors['password'] = "La contraseña debe tener al menos 8 caracteres.";
-    } elseif ($_POST['password'] !== $_POST['confirm_password']) {
-        $errors['confirm_password'] = "Las contraseñas no coinciden.";
-    }
-
-    if (empty($user->getDni())) {
-        $errors['dni'] = "El DNI es obligatorio.";
-    } elseif (!preg_match('/^[0-9]{8}[A-Za-z]$/', $user->getDni())) {
-        $errors['dni'] = "El DNI debe tener 8 números seguidos de una letra.";
-    }
-    if (empty($user->getPhone())) {
-        $errors['phone'] = "El teléfono es obligatorio.";
-    } elseif (!preg_match('/^[0-9]{9}$/', $user->getPhone())) {
-        $errors['phone'] = "El teléfono debe tener exactamente 9 dígitos.";
-    }
-
-    if (empty($user->getAddress())) {
-        $errors['address'] = "La dirección es obligatoria.";
-    }
-
-    if (empty($user->getBankAccount())) {
-        $errors['bank_acc'] = "La cuenta bancaria es obligatoria.";
-    } elseif (!preg_match('/^([A-Z]{2}[0-9]{2})(\s[0-9A-Z]{4}){1,7}$/', $user->getBankAccount())) {
-        $errors['bank_acc'] = "La cuenta bancaria no es válida. Debe seguir el formato IBAN.";
-    }
-
-    // Si no hay errores, actualizar el perfil
     if (empty($errors)) {
-        if ($user->profileUpdate($user_id)) {
+        if ($userObj->emailExistsEdit()) {
+            $errors['email'] = "El correo electrónico ya está registrado.";
+        }
+    }
+
+    if (empty($errors)) {
+        if ($userObj->profileUpdate($_SESSION['user_id'])) {
             $_SESSION['success'] = "Perfil actualizado correctamente.";
             header("Location: EditProfileScreen.php");
             exit();
         } else {
             $errors['general'] = "Hubo un error al actualizar el perfil. Inténtalo de nuevo.";
         }
+    }
+}
+
+if (isset($_POST['logout'])) {
+    $userModel = new User($pdo);
+    $userModel->userLogout();
+}
+
+$user_id = $_SESSION['user_id'];
+
+if (isset($_POST['delete_account'])) {
+    $userModel = new User($pdo);
+    if ($userModel->deleteUser($user_id)) {
+        session_destroy();
+        header("Location: RegisterScreen.php");
+        exit();
+    } else {
+        $errors['general'] = "No se pudo eliminar la cuenta. Inténtalo de nuevo.";
     }
 }
 ?>
@@ -165,16 +154,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <?php endif; ?>
                     </div>
                 </div>
-                <div class="form-group full-width">
-                    <label>Cuenta bancaria</label>
-                    <input type="text" name="bank_acc" placeholder="ES12 3456 7891 2345 6789" value="<?php echo htmlspecialchars($user['bank_acc'] ?? ''); ?>">
-                    <?php if (isset($errors['bank_acc'])): ?>
-                        <p style="color: red; font-size: 0.8rem; margin-top: 0.5rem;"><?php echo $errors['bank_acc']; ?></p>
-                        <?php endif; ?>
-                </div>
                 <div class="button-group">
                     <button type="submit" class="save-button">Guardar</button>
-                    <button type="button" class="logout-button">Cerrar sesión</button>
+                    <div class="red-buttons">
+                        <form method="post" style="display:inline;">
+                            <button type="submit" name="logout" class="logout-button">Cerrar sesión</button>
+                        </form>
+                        <form method="post" style="display:inline;" onsubmit="return confirm('¿Seguro que quieres eliminar tu cuenta? Esta acción no se puede deshacer.');">
+                            <button type="submit" name="delete_account" class="delete-button">Eliminar cuenta</button>
+                        </form>
+                    </div>
                 </div>
             </form>
         </div>

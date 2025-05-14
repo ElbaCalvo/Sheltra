@@ -1,24 +1,14 @@
 <?php
-
 session_start();
 require_once "../../app/model/User.php";
 require_once "../../config/dbConnection.php";
 
-// Configuración de la base de datos
-$host = 'localhost';
-$dbname = 'sheltra';
-$username = 'root';
-$password = '';
-
 try {
-    // Conexión a la base de datos
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = getDBConnection();
 } catch (PDOException $e) {
     die("Error al conectar con la base de datos: " . $e->getMessage());
 }
 
-// Inicializar array de errores
 $errors = [];
 $user_name = '';
 
@@ -29,65 +19,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password']);
     $confirm_password = trim($_POST['confirm_password']);
     $dni = trim($_POST['dni']);
+    $address = trim($_POST['address']);
 
-    // Validar campos vacíos
-    if (empty($username)) {
-        $errors['username'] = "El nombre de usuario es obligatorio.";
-    } elseif (strlen($username) > 10) {
-        $errors['username'] = "El nombre no puede tener más de 10 caracteres.";
-    }
+    $user = new User($pdo);
+    $user->setUsername($username);
+    $user->setPhone($phone);
+    $user->setEmail($email);
+    $user->setPassword($password);
+    $user->setDni($dni);
+    $user->setAddress($address);
 
-    if (empty($phone)) {
-        $errors['phone'] = "El teléfono es obligatorio.";
-    } elseif (!preg_match('/^[0-9]{9}$/', $phone)) {
-        $errors['phone'] = "El teléfono debe tener exactamente 9 dígitos.";
-    }
 
-    if (empty($email)) {
-        $errors['email'] = "El correo electrónico es obligatorio.";
-    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-        $errors['email'] = "El correo electrónico no es válido.";
-    }
+    $errors = $user->validateRegister($username, $phone, $email, $password, $confirm_password, $dni, $address);
 
-    if (empty($password)) {
-        $errors['password'] = "La contraseña es obligatoria.";
-    } elseif (strlen($password) < 8) {
-        $errors['password'] = "La contraseña debe tener al menos 8 caracteres.";
-    }
-
-    if (empty($confirm_password)) {
-        $errors['confirm_password'] = "Debes confirmar la contraseña.";
-    } elseif ($password !== $confirm_password) {
-        $errors['confirm_password'] = "Las contraseñas no coinciden.";
-    }
-
-    if (empty($dni)) {
-        $errors['dni'] = "El DNI es obligatorio.";
-    } elseif (!preg_match('/^[0-9]{8}[A-Za-z]$/', $dni)) {
-        $errors['dni'] = "El DNI debe tener 8 números seguidos de una letra.";
+    if (empty($errors)) {
+        if ($user->emailExists()) {
+            $errors['email'] = "El correo electrónico ya está registrado.";
+        }
     }
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
-        if ($stmt->rowCount() > 0) {
-            $errors['email'] = "El correo electrónico ya está registrado.";
-        } else {
-            $user = new User();
-            $user->setUsername($username);
-            $user->setEmail($email);
-            $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-            $user->setDni($dni);
-            $user->setPhone($phone);
+        $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
 
-            if ($user->addUser()) {
-                $_SESSION['success'] = "Registro exitoso. Ahora puedes iniciar sesión.";
-                header("Location: LoginScreen.php");
-                exit();
-            } else {
-                $errors['general'] = "Hubo un error al registrar el usuario. Inténtalo de nuevo.";
-            }
+        if ($user->addUser()) {
+            $_SESSION['success'] = "Registro exitoso. Ahora puedes iniciar sesión.";
+            header("Location: LoginScreen.php");
+            exit();
+        } else {
+            $errors['general'] = "Hubo un error al registrar el usuario. Inténtalo de nuevo.";
         }
     }
 }
@@ -164,6 +123,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="password" name="confirm_password" placeholder="••••••••">
                                 <?php if (isset($errors['confirm_password'])): ?>
                                     <p style="color: red; font-size: 0.8rem; margin-top: 0.5rem;"><?php echo $errors['confirm_password']; ?></p>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Dirección</label>
+                                <input type="text" name="address" placeholder="Calle Ejemplo 123" value="<?php echo htmlspecialchars($address ?? ''); ?>">
+                                <?php if (isset($errors['address'])): ?>
+                                    <p style="color: red; font-size: 0.8rem; margin-top: 0.5rem;"><?php echo $errors['address']; ?></p>
                                 <?php endif; ?>
                             </div>
                         </div>

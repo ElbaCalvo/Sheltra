@@ -1,9 +1,11 @@
 <?php
 require_once "../../config/dbConnection.php";
+require_once "../../app/model/User.php";
+require_once "../../app/model/Donations.php";
 
 session_start();
 
-if (!isset($_SESSION['user_id'])) {
+if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesión
     header("Location: LoginScreen.php");
     exit();
 }
@@ -11,16 +13,13 @@ if (!isset($_SESSION['user_id'])) {
 try {
     $pdo = getDBConnection();
 
-    // Consulta para obtener el nombre del usuario
-    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Obtener el usuario
+    $userModel = new User($pdo);
+    $user = $userModel->getUserById($_SESSION['user_id']);
 
-    // Consulta para obtener los refugios
-    $stmt = $pdo->prepare("SELECT * FROM shelters");
-    $stmt->execute();
-    $shelters = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Obtener todos los refugios
+    $donationsModel = new Donations($pdo);
+    $shelters = $donationsModel->getAllShelters();
 } catch (PDOException $e) {
     die("Error al obtener los datos: " . $e->getMessage());
 }
@@ -62,6 +61,8 @@ try {
                     <p>Aunque no puedas adoptar, aún puedes cambiar vidas.<br>Conoce a los refugios que lo dan todo por ellos.</p>
                 </div>
             </div>
+
+            <h2 class="shelters-title">Refugios</h2>
 
             <div class="shelters-grid">
                 <?php if (!empty($shelters)): ?>
