@@ -3,13 +3,9 @@ require_once "../../config/dbConnection.php";
 require_once "../../app/model/Animal.php";
 
 try {
-    // Crear conexión a la base de datos
     $pdo = getDBConnection();
-
-    // Consultar todos los animales
-    $stmt = $pdo->prepare("SELECT * FROM animals");
-    $stmt->execute();
-    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $animalModel = new Animal($pdo);
+    $animals = $animalModel->getAll();
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }
@@ -53,9 +49,11 @@ try {
                         <div class="animal-card">
                         <img src="<?php echo htmlspecialchars($animal['foto']); ?>" alt="Animal" class="animal-image">
                             <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                            <p><?php echo htmlspecialchars($animal['type']); ?></p>
+                            <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
                             <div class="card-footer">
-                                <button class="view-more">Ver más</button>
+                                <a href="LoginScreen.php">
+                                    <button class="view-more">Ver más</button>
+                                </a>
                                 <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                             </div>
                         </div>

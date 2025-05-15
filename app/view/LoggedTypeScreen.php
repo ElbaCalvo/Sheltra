@@ -1,5 +1,7 @@
 <?php
 require_once "../../config/dbConnection.php";
+require_once "../../app/model/User.php";
+require_once "../../app/model/Animal.php";
 
 session_start();
 
@@ -23,16 +25,11 @@ $typeImage = $typeImages[$type] ?? '../../img/default-banner.jpg';
 
 try {
     $pdo = getDBConnection();
+    $userModel = new User($pdo);
+    $animalModel = new Animal($pdo);
 
-    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $stmt = $pdo->prepare("SELECT * FROM animals WHERE type = :type");
-    $stmt->bindParam(':type', $type);
-    $stmt->execute();
-    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $userModel->getUserById($_SESSION['user_id']);
+    $animals = $animalModel->getByType($type);
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }

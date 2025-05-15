@@ -48,7 +48,7 @@ h2 {
 }
 
 .edit-form {
-    background-color: #F1F8EC;
+    background-color: #DBE5B2;
     padding: 2rem;
     border-radius: 12px;
     border: 2.5px solid #4C6E31;
@@ -94,9 +94,9 @@ input {
 .save-button {
     width: 100%;
     padding: 0.7rem;
+    border: 2px solid #4C6E31;
     background-color: #94BA77;
     color: #333;
-    border: none;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;
@@ -116,9 +116,9 @@ input {
 .delete-button {
     width: 100%;
     padding: 0.7rem;
+    border: 2px solid #5d0f0f;
     background-color: #E53935;
-    color: white;
-    border: none;
+    color: #3a0707;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;

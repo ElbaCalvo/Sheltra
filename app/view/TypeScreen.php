@@ -1,5 +1,6 @@
 <?php
 require_once "../../config/dbConnection.php";
+require_once "../../app/model/Animal.php";
 
 $type = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : 'Desconocido';
 
@@ -16,10 +17,8 @@ $typeImage = $typeImages[$type] ?? '../../img/default-banner.jpg';
 
 try {
     $pdo = getDBConnection();
-    $stmt = $pdo->prepare("SELECT * FROM animals WHERE type = :type");
-    $stmt->bindParam(':type', $type);
-    $stmt->execute();
-    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $animalModel = new Animal($pdo);
+    $animals = $animalModel->getByType($type);
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }
@@ -66,7 +65,9 @@ try {
                 <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
                 <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
                 <div class="card-footer">
-                    <button class="view-more">Ver más</button>
+                    <a href="LoginScreen.php">
+                        <button class="view-more">Ver más</button>
+                    </a>
                     <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                 </div>
             </div>

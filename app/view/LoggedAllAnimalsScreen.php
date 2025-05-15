@@ -1,6 +1,7 @@
 <?php
 require_once "../../config/dbConnection.php";
 require_once "../../app/model/Animal.php";
+require_once "../../app/model/User.php";
 
 session_start();
 
@@ -11,14 +12,11 @@ if (!isset($_SESSION['user_id'])) {
 
 try {
     $pdo = getDBConnection();
-    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $userModel = new User($pdo);
+    $animalModel = new Animal($pdo);
 
-    $stmt = $pdo->prepare("SELECT * FROM animals");
-    $stmt->execute();
-    $animals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $userModel->getUserById($_SESSION['user_id']);
+    $animals = $animalModel->getAll();
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }
@@ -61,9 +59,12 @@ try {
                         <div class="animal-card">
                         <img src="<?php echo htmlspecialchars($animal['foto']); ?>" alt="Animal" class="animal-image">
                             <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                            <p><?php echo htmlspecialchars($animal['type']); ?></p>
+                            <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
                             <div class="card-footer">
-                                <button class="view-more">Ver más</button>
+                                <form action="AdoptScreen.php" method="get" style="display:inline;">
+                                    <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                                    <button class="view-more" type="submit">Ver más</button>
+                                </form>
                                 <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                             </div>
                         </div>

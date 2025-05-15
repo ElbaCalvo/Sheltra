@@ -44,11 +44,23 @@ class Animal {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getByType($type) {
+        $stmt = $this->pdo->prepare("SELECT * FROM animals WHERE type = :type AND state = 'Adopción activa' ORDER BY entry_date DESC");
+        $stmt->bindParam(':type', $type);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function getByTypeExcept($type, $excludeId) {
         $stmt = $this->pdo->prepare("SELECT * FROM animals WHERE type = :type AND id != :excludeId AND state = 'Adopción activa' ORDER BY entry_date DESC");
         $stmt->bindParam(':type', $type);
         $stmt->bindParam(':excludeId', $excludeId);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getAll() {
+        $stmt = $this->pdo->query("SELECT * FROM animals WHERE state = 'Adopción activa'");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
