@@ -9,6 +9,18 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
+    $pdo = getDBConnection();
+    $animalModel = new Animal($pdo);
+    if (isset($_POST['remove_favorite'])) {
+        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    } else {
+        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    }
+    header("Location: AdoptScreen.php?id_animal=" . urlencode($_GET['id_animal'] ?? '') . "&page=" . ($_GET['page'] ?? 1));
+    exit();
+}
+
 $pdo = getDBConnection();
 $userModel = new User($pdo);
 $animalModel = new Animal($pdo);
@@ -32,6 +44,7 @@ if ($type) {
     $allAnimals = $animalModel->getAllOrdered();
 }
 
+$userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
 $total = count($allAnimals);
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $perPage = 3;
@@ -81,7 +94,20 @@ $animalsPage = array_slice($allAnimals, $offset, $perPage);
                     <div class="animal-info">
                         <div class="info-header">
                             <h1><?php echo htmlspecialchars($animal['name'] ?? 'Nombre de la mascota'); ?></h1>
-                            <img src="../../img/empty-like.png" alt="Favorite" class="favorite-icon">
+                            <div class="paw-icon">
+                                <form method="post" style="display:inline;">
+                                    <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                                    <?php if (in_array($animal['id'], $userFavorites)): ?>
+                                        <button type="submit" name="remove_favorite" style="background:none;border:none;padding:0;">
+                                            <img src="../../img/like.png" alt="Like">
+                                        </button>
+                                    <?php else: ?>
+                                        <button type="submit" style="background:none;border:none;padding:0;">
+                                            <img src="../../img/empty-like.png" alt="Like">
+                                        </button>
+                                    <?php endif; ?>
+                                </form>
+                            </div>
                         </div>
                         <p class="location">
                             <?php
@@ -129,7 +155,7 @@ $animalsPage = array_slice($allAnimals, $offset, $perPage);
                     <h2>También te pueden interesar:</h2>
                     <div class="carousel" id="carousel">
                         <button class="carousel-button prev"
-                        <?php if ($page <= 1) echo 'disabled'; ?>
+                            <?php if ($page <= 1) echo 'disabled'; ?>
                             onclick="window.location.href='AdoptScreen.php?id_animal=<?php echo urlencode($animal['id']); ?>&page=<?php echo $page - 1; ?>#carousel'">‹</button>
                         <div class="carousel-items">
                             <div class="animals-grid">
@@ -143,14 +169,27 @@ $animalsPage = array_slice($allAnimals, $offset, $perPage);
                                                 <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($a['id']); ?>">
                                                 <button class="view-more" type="submit">Ver más</button>
                                             </form>
-                                            <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                                            <div class="paw-icon">
+                                                <form method="post" style="display:inline;">
+                                                    <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($a['id']); ?>">
+                                                    <?php if (in_array($a['id'], $userFavorites)): ?>
+                                                        <button type="submit" name="remove_favorite" style="background:none;border:none;padding:0;">
+                                                            <img src="../../img/like.png" alt="Like">
+                                                        </button>
+                                                    <?php else: ?>
+                                                        <button type="submit" style="background:none;border:none;padding:0;">
+                                                            <img src="../../img/empty-like.png" alt="Like">
+                                                        </button>
+                                                    <?php endif; ?>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
                         </div>
                         <button class="carousel-button next"
-                        <?php if ($offset + $perPage >= $total) echo 'disabled'; ?>
+                            <?php if ($offset + $perPage >= $total) echo 'disabled'; ?>
                             onclick="window.location.href='AdoptScreen.php?id_animal=<?php echo urlencode($animal['id']); ?>&page=<?php echo $page + 1; ?>#carousel'">›</button>
                     </div>
                 </div>

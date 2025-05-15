@@ -10,6 +10,18 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
+    $pdo = getDBConnection();
+    $animalModel = new Animal($pdo);
+    if (isset($_POST['remove_favorite'])) {
+        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    } else {
+        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    }
+    header("Location: LoggedHomeScreen.php");
+    exit();
+}
+
 try {
     $pdo = getDBConnection();
     $userModel = new User($pdo);
@@ -17,6 +29,7 @@ try {
 
     $user = $userModel->getUserById($_SESSION['user_id']); 
     $latestAnimals = $animalModel->getLatest(3);
+    $userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
 } catch (PDOException $e) {
     die("Error al conectar con la base de datos: " . $e->getMessage());
 }
@@ -70,15 +83,29 @@ try {
                 <div class="animal-card">
                     <img src="<?php echo htmlspecialchars($animal['foto'] ?? '../../img/placeholder.png'); ?>" alt="Animal" class="animal-image">
                     <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                    <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>                    <div class="card-footer">
-                    <form action="AdoptScreen.php" method="get" style="display:inline;">
-                        <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
-                        <button class="view-more" type="submit">Ver más</button>
-                    </form>
-                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>
+                    <div class="card-footer">
+                        <form action="AdoptScreen.php" method="get" style="display:inline;">
+                            <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                            <button class="view-more" type="submit">Ver más</button>
+                        </form>
+                        <div class="paw-icon">
+                            <form method="post" style="display:inline;">
+                                <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                                <?php if (in_array($animal['id'], $userFavorites)): ?>
+                                <button type="submit" name="remove_favorite" style="background:none;border:none;padding:0;">
+                                    <img src="../../img/like.png" alt="Like">
+                                </button>
+                            <?php else: ?>
+                                <button type="submit" style="background:none;border:none;padding:0;">
+                                    <img src="../../img/empty-like.png" alt="Like">
+                                </button>
+                            <?php endif; ?>
+                        </form>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+        <?php endforeach; ?>
         </div>
     </section>
 

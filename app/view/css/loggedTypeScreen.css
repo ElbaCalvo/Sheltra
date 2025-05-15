@@ -119,10 +119,19 @@ header {
 }
 
 .paw-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 30px;
     height: 30px;
     background-color: #94BA77;
     border-radius: 50%;
+    padding: 5px;
+}
+
+.paw-icon img {
+    width: 30px;
+    height: 30px;
 }
 
 h3 {

@@ -1,3 +1,40 @@
+<?php
+require_once "../../config/dbConnection.php";
+require_once "../../app/model/Animal.php";
+require_once "../../app/model/User.php";
+
+session_start();
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: LoginScreen.php");
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
+    $pdo = getDBConnection();
+    $animalModel = new Animal($pdo);
+    if (isset($_POST['remove_favorite'])) {
+        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    } else {
+        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+    }
+    header("Location: FavoritesScreen.php");
+    exit();
+}
+
+try {
+    $pdo = getDBConnection();
+    $userModel = new User($pdo);
+    $animalModel = new Animal($pdo);
+
+    $user = $userModel->getUserById($_SESSION['user_id']);
+    $animals = $animalModel->getFavorites($_SESSION['user_id']);
+    $userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
+} catch (PDOException $e) {
+    die("Error al obtener los animales: " . $e->getMessage());
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -27,35 +64,52 @@
     </header>
 
     <div class="page-content">
-        <div class="side-panel"></div>
-        <div class="main-content">
-            <div class="favorites-container">
-                <h2>Tus favoritos</h2>
+    <div class="side-panel"></div>
+    <div class="main-content">
+        <div class="favorites-container">
+            <h2>Tus favoritos</h2>
 
-                <div class="favorites-list">
-                    <div class="animal-card">
-                        <div class="card-image">
-                            <img src="../../img/placeholder.png" alt="Animal">
-                        </div>
-                        <div class="card-content">
-                            <div class="content-header">
-                                <div>
-                                    <h3>Nombre de la animal</h3>
-                                    <p class="animal-type">Tipo de animal</p>
-                                </div>
-                                <div class="paw-icon">
-                                    <img src="../../img/empty-like.png" alt="Paw">
-                                </div>
+            <div class="favorites-list">
+                <?php if (empty($animals)): ?>
+                    <p>No tienes animales favoritos aún.</p>
+                <?php else: ?>
+                    <?php foreach ($animals as $animal): ?>
+                        <div class="animal-card">
+                            <div class="card-image">
+                                <img src="<?php echo htmlspecialchars($animal['foto'] ?? '../../img/placeholder.png'); ?>" alt="Animal">
                             </div>
-                            <p class="description">Descripción descripción descripción...</p>
-                            <button class="view-more">Ver más</button>
+                            <div class="card-content">
+                                <div class="content-header">
+                                    <div>
+                                        <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
+                                        <p class="animal-type"><?php echo htmlspecialchars($animal['type']); ?></p>
+                                    </div>
+                                    <div class="paw-icon">
+                                        <form method="post" style="display:inline;">
+                                            <input type="hidden" name="animal_id" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                                            <?php if (in_array($animal['id'], $userFavorites)): ?>
+                                                <button type="submit" name="remove_favorite" style="background:none;border:none;padding:0;">
+                                                    <img src="../../img/like.png" alt="Like">
+                                                </button>
+                                            <?php else: ?>
+                                                <button type="submit" style="background:none;border:none;padding:0;">
+                                                    <img src="../../img/empty-like.png" alt="Like">
+                                                </button>
+                                            <?php endif; ?>
+                                        </form>
+                                    </div>
+                                </div>
+                                <p class="description"><?php echo htmlspecialchars($animal['description']); ?></p>
+                                <button class="view-more">Ver más</button>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
             </div>
         </div>
-        <div class="side-panel"></div>
     </div>
+    <div class="side-panel"></div>
+</div>
 </body>
 
 </html>

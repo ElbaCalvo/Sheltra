@@ -76,6 +76,42 @@ class Animal {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getFavorites($user_id) {
+        $stmt = $this->pdo->prepare("SELECT * FROM animals WHERE id IN (SELECT id_animal FROM favorites WHERE id_user = :user_id) AND state = 'Adopción activa'");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function addFavorite($user_id, $animal_id) {
+        $stmt = $this->pdo->prepare("SELECT 1 FROM favorites WHERE id_user = :user_id AND id_animal = :animal_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':animal_id', $animal_id, PDO::PARAM_INT);
+        $stmt->execute();
+        if ($stmt->fetch()) {
+            return true;
+        }
+
+        $stmt = $this->pdo->prepare("INSERT INTO favorites (id_user, id_animal) VALUES (:user_id, :animal_id)");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':animal_id', $animal_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function removeFavorite($user_id, $animal_id) {
+        $stmt = $this->pdo->prepare("DELETE FROM favorites WHERE id_user = :user_id AND id_animal = :animal_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->bindParam(':animal_id', $animal_id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
+
+    public function getUserFavoriteIds($user_id) {
+        $stmt = $this->pdo->prepare("SELECT id_animal FROM favorites WHERE id_user = :user_id");
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_COLUMN);
+    }  
+
     public function setInactive($id_animal) {
         $stmt = $this->pdo->prepare("UPDATE animals SET state = 'Adopción no activa' WHERE id = :id_animal");
         $stmt->bindParam(':id_animal', $id_animal, PDO::PARAM_INT);

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-05-2025 a las 20:49:38
+-- Tiempo de generación: 15-05-2025 a las 21:45:45
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -47,7 +47,7 @@ CREATE TABLE `animals` (
 
 INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `description`, `foto`, `entry_date`, `state`) VALUES
 (5, 1, 'Nube', 'Roedor', '1', 'Hembra', 'Grande', 'Nube es un conejo juguetón y curioso. Le encanta explorar y comer zanahorias. Es ideal para familias con niños pequeños.', 'https://content.elmueble.com/medio/2025/03/18/conejo-enano-belier_0c663703_250318172443_900x900.webp', '2025-05-05', 'Adopción activa'),
-(6, 3, 'Luna', 'Gato', '3', 'Hembra', 'Pequeno', 'Luna es una gata juguetona y curiosa. Le encanta perseguir luces y descansar en lugares altos. Es ideal para familias que buscan una mascota activa y cariñosa.', 'https://www.zooplus.es/magazine/wp-content/uploads/2022/01/Psicologia-felina.jpeg', '2025-05-05', 'Adopción activa'),
+(6, 3, 'Luna', 'Gato', '3', 'Hembra', 'Pequeno', 'Luna es una gata juguetona y curiosa. Le encanta perseguir luces y descansar en lugares altos. Es ideal para familias que buscan una mascota activa y cariñosa.', 'https://www.zooplus.es/magazine/wp-content/uploads/2022/01/Psicologia-felina.jpeg', '2025-05-05', 'Adopción no activa'),
 (7, 3, 'Max', 'Perro', '4', 'Macho', 'Mediano', 'Max es un perro leal y protector. Le encanta jugar al aire libre y es perfecto para familias activas que buscan un compañero energético.', 'https://panchoskitchen.com/cdn/shop/articles/perro-con-la-lengua-afuera-mirando-hacia-arriba.png?v=1677637524', '2025-05-05', 'Adopción activa'),
 (8, 1, 'Simba', 'Gato', '7', 'Macho', 'Mediano', 'Simba es un gato curioso y juguetón. Le encanta explorar y es ideal para hogares que buscan una mascota activa y divertida.', 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg', '2025-05-05', 'Adopción activa'),
 (9, 2, 'Shelly', 'Reptil', '10', 'Hembra', 'Grande', 'Shelly es una tortuga tranquila y fácil de cuidar. Es perfecta para personas que buscan una mascota de bajo mantenimiento.', 'https://cdn0.expertoanimal.com/es/posts/6/3/3/especies_de_tortugas_de_tierra_20336_600.webp', '2025-05-05', 'Adopción activa'),
@@ -60,7 +60,7 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (16, 3, 'Coco', 'Gato', '3', 'Macho', 'Pequeño', 'Coco es juguetón y se lleva bien con perros pequeños.', 'https://th.bing.com/th/id/OIP.Zl_CdHA0KcEfo0pkDwMb_wHaGU?cb=iwc2&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
 (17, 2, 'Sombra', 'Gato', '8', 'Hembra', 'Grande', 'Sombra necesita un hogar tranquilo.', 'https://frusnatassar.se/____impro/1/onewebmedia/2023-08-30%2019.25.27.jpg?etag=%22f902-64ef7baa%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=704%2B704&extract=0%2B0%2B703%2B624&quality=85', '2025-05-05', 'Adopción activa'),
 (18, 5, 'Félix', 'Gato', '5', 'Macho', 'Mediano', 'Félix es muy curioso y le encanta trepar.', 'https://amomeugato.blog.br/wp-content/uploads/2022/09/Chartreux-1024x686.jpg', '2025-05-05', 'Adopción activa'),
-(19, 5, 'Daisy', 'Gato', '6', 'Hembra', 'Grande', 'Daisy es una gata dulce y tranquila.', 'https://vancouverguardian.com/wp-content/uploads/2022/03/301910-624553c738020.jpeg', '2025-05-05', 'Adopción activa'),
+(19, 5, 'Daisy', 'Gato', '6', 'Hembra', 'Grande', 'Gata curiosa y cariñosa, le gusta explorar y buscar rincones soleados para descansar. Ideal para familias que buscan una compañera tranquila y juguetona.', 'https://vancouverguardian.com/wp-content/uploads/2022/03/301910-624553c738020.jpeg', '2025-05-13', 'Adopción activa'),
 (20, 1, 'Rocky', 'Perro', '3', 'Macho', 'Grande', 'Rocky es enérgico y le encanta correr al aire libre.', 'https://www.hola.com/imagenes/estar-bien/20200525168642/razas-perro-border-collie/0-827-353/border-collie-m.jpg', '2025-05-05', 'Adopción activa'),
 (21, 1, 'Bella', 'Perro', '5', 'Hembra', 'Mediano', 'Bella es dulce y le encanta estar acompañada.', 'https://th.bing.com/th/id/OIP.WC0dupB4lXJLrFMP8zKpBQAAAA?cb=iwc2&w=402&h=402&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
 (22, 2, 'Toby', 'Perro', '2', 'Macho', 'Pequeño', 'Toby es perfecto para vivir en un piso.', 'https://th.bing.com/th/id/OIP.mqy_bmn4U4Fq-1pY0rzliQHaG8?cb=iwc2&w=640&h=600&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
@@ -70,7 +70,7 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (26, 2, 'Zeus', 'Perro', '7', 'Macho', 'Grande', 'Zeus es fuerte y protector.', 'https://pbs.twimg.com/media/FNeHFAlX0AIDszu?format=jpg&name=900x900', '2025-05-05', 'Adopción activa'),
 (27, 5, 'Maya', 'Perro', '2', 'Hembra', 'Mediano', 'Maya es juguetona y le gusta el agua.', 'https://upload.chien.com/upload_global/61/86900-147363_light.jpg', '2025-05-05', 'Adopción activa'),
 (28, 5, 'Thor', 'Perro', '5', 'Macho', 'Mediano', 'Thor es leal y se lleva bien con otros perros.', 'https://cdn.sanity.io/images/d075r9p6/production/4d91930c2dbc806cc7e1f87fa0582ed1c054f573-400x400.jpg?w=1200&h=630', '2025-05-05', 'Adopción activa'),
-(29, 5, 'Lucy', 'Perro', '1', 'Hembra', 'Pequeño', 'Lucy es una cachorra activa que aprende rápido.', 'https://lirp-cdn.multiscreensite.com/ed0f610b/dms3rep/multi/opt/criaderos+shih+tzu+mexico+pic+2-1920w.jpg', '2025-05-05', 'Adopción activa'),
+(29, 5, 'Lucy', 'Perro', '1', 'Hembra', 'Pequeño', 'Perrita pequeño, alegre y muy cariñosa. Le gusta estar en compañía, recibir mimos y dar paseos cortos. Ideal para cualquier hogar que busque una amiga fiel y tierna.', 'https://lirp-cdn.multiscreensite.com/ed0f610b/dms3rep/multi/opt/criaderos+shih+tzu+mexico+pic+2-1920w.jpg', '2025-05-12', 'Adopción activa'),
 (30, 1, 'Draco', 'Reptil', '4', 'Macho', 'Grande', 'Draco es un dragón barbudo sociable.', 'https://media.istockphoto.com/photos/bearded-agama-picture-id1199672924?k=6&m=1199672924&s=612x612&w=0&h=o7jwfnzO4rT3HEogV1a9cQpD-heWjMV5EYsXj88UFEc=', '2025-05-05', 'Adopción activa'),
 (31, 1, 'Ivy', 'Reptil', '2', 'Hembra', 'Pequeño', 'Ivy es una salamanquesa activa por las noches.', 'https://3.bp.blogspot.com/-h8OJPKQpjFU/VAXbKYXTwaI/AAAAAAAADtM/7_eNJP1ZRLc/s1600/Tarentola%2Bmauritanica%2Bdragonet%2Bsalamanquesa%2Bdrag%C3%B3%2Bandrag%C3%B3%2Bgecko%2Bmediterranean%2Bhouse%2Bcommon%2BMartorell%2BBaix%2BLlobregat%2BAnoia%2BCatalunya%2BCatalonia%2BCatalunya%2BPhyllodactylidae.JPG', '2025-05-05', 'Adopción activa'),
 (32, 2, 'Rex', 'Reptil', '3', 'Macho', 'Mediano', 'Rex es un gecko muy tranquilo y fácil de cuidar.', 'https://www.learnaboutnature.com/wp-content/uploads/Crested-Gecko.jpg', '2025-05-05', 'Adopción activa'),
@@ -93,7 +93,7 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (49, 1, 'Kiara', 'Ave', '1', 'Hembra', 'Pequeño', 'Kiara es una canaria muy melodiosa y le encanta cantar por las mañanas.', 'https://t1.uc.ltmcdn.com/es/posts/6/3/8/como_saber_si_mi_canario_es_macho_o_hembra_39836_orig.jpg', '2025-05-05', 'Adopción activa'),
 (50, 2, 'Rocco', 'Ave', '4', 'Macho', 'Grande', 'Rocco es un guacamayo que disfruta de los espacios abiertos.', 'https://estag.fimagenes.com/img/4/V/4/7/V47_900.jpg', '2025-05-05', 'Adopción activa'),
 (51, 2, 'Sunny', 'Ave', '3', 'Hembra', 'Mediano', 'Sunny es un periquito muy activo y social.', 'https://th.bing.com/th/id/OIP.KQeHtsGNCsDMLrkfHTAUJwHaFj?cb=iwc2&w=700&h=525&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
-(52, 3, 'Lola', 'Ave', '5', 'Hembra', 'Pequeño', 'Lola es una tortolita tranquila que disfruta del sol.', 'https://www.allaboutbirds.org/guide/assets/photo/308127271-1900px.jpg', '0000-00-00', 'Adopción activa'),
+(52, 3, 'Lola', 'Ave', '5', 'Hembra', 'Pequeño', 'Lola es una tortolita tranquila que disfruta del sol.', 'https://www.allaboutbirds.org/guide/assets/photo/308127271-1900px.jpg', '2025-05-05', 'Adopción activa'),
 (53, 3, 'Max', 'Ave', '2', 'Macho', 'Mediano', 'Max es un loro amazónico que le gusta cantar y volar por la casa.', 'https://th.bing.com/th/id/R.c0bd5b4455a03d16ebde5b53daa447ff?rik=9csybeaUHwCvDg&riu=http%3a%2f%2fhablemosdeaves.com%2fwp-content%2fuploads%2f2017%2f03%2fcaracteristicas-del-loro-verde-1.jpg&ehk=zCNA9SQhKbG2LiOM3n6UYeaN0OZ0BDhs0%2f9d6EKORvU%3d&risl=&pid=ImgRaw&r=0&sres=1&sresct=1', '2025-05-05', 'Adopción activa'),
 (54, 5, 'Toby', 'Ave', '3', 'Macho', 'Pequeño', 'Toby es un canario alegre que disfruta de la compañía.', 'https://atlasanimal.com/wp-content/uploads/2021/02/canario.jpg', '2025-05-05', 'Adopción activa'),
 (55, 3, 'Olga', 'Ave', '1', 'Hembra', 'Pequeño', 'Olga es una cacatúa juguetona y le encanta hacer ruidos divertidos.', 'https://inaturalist-open-data.s3.amazonaws.com/photos/160560221/medium.jpeg', '2025-05-05', 'Adopción activa'),
@@ -108,7 +108,8 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (64, 1, 'Splash', 'Pez', '1', 'Macho', 'Pequeño', 'Splash es un pez de colores vibrantes y muy activo.', 'https://img.freepik.com/fotos-premium/pescado-acuario-pez-colores-agua-submarino-animal-mar-tropical-oro-naturaleza-oceano_938969-66.jpg', '2025-05-05', 'Adopción activa'),
 (65, 2, 'Coral', 'Pez', '4', 'Hembra', 'Mediano', 'Coral es un pez ángel que se adapta bien a acuarios comunitarios.', 'https://th.bing.com/th/id/R.a2ff7c4408ade4db3b09a21efdcfa060?rik=qoeTFFVtS0h8%2fA&riu=http%3a%2f%2fwww.mercafauna.com%2ffotos%2fanimales%2f53_pterophyllum_scalare01.jpg&ehk=MAH%2bF1bFTqIDYpTxQFSXBd0Z%2fNSc1OlaY%2bDeM43mor8%3d&risl=&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
 (66, 5, 'Aquarius', 'Pez', '2', 'Macho', 'Pequeño', 'Aquarius es un pez disco que disfruta de la calma en el agua.', 'https://th.bing.com/th/id/R.ccf9b819afe0ca253f15b98d79f45cd5?rik=9yS1dMqnTgKJnA&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
-(67, 5, 'Star', 'Pez', '3', 'Hembra', 'Mediano', 'Star es un pez koi muy sociable que le gusta estar con otros peces.', 'https://thelakehill.com/wp-content/uploads/2023/03/Koi-Fish.webp', '2025-05-05', 'Adopción activa');
+(67, 5, 'Star', 'Pez', '3', 'Hembra', 'Mediano', 'Star es un pez koi muy sociable que le gusta estar con otros peces.', 'https://thelakehill.com/wp-content/uploads/2023/03/Koi-Fish.webp', '2025-05-05', 'Adopción activa'),
+(68, 2, 'Vainilla', 'Roedor', '2', 'Hembra', 'Pequeno', 'Vainilla es una conejita a la que le gusta comer y dormir, perfecta para familias tranquilas', 'https://i.pinimg.com/736x/23/95/36/23953669049a24da6e7cbdbddfac9e6e.jpg', '2025-05-15', 'Adopción activa');
 
 -- --------------------------------------------------------
 
@@ -139,6 +140,14 @@ CREATE TABLE `applications` (
   `post_adop` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Volcado de datos para la tabla `applications`
+--
+
+INSERT INTO `applications` (`id`, `id_user`, `id_animal`, `date`, `status`, `text`, `resolution`, `applic_name`, `applic_mail`, `applic_phone`, `applic_address`, `housing_type`, `ownership_status`, `pets_allowed`, `outdoor_space`, `pets_before`, `other_pets`, `maintenance`, `contract`, `post_adop`) VALUES
+(1, 2, 5, '2025-05-15', 'pendiente', 'Porque me encantan los animales y vivo sola así que quiero tener compañía', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'casa', 'propia', '', 'si', 'si', 'no', 'si', 'si', 'si'),
+(3, 2, 6, '2025-05-15', 'pendiente', 'Quiero dar amor sisi', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'piso', 'alquilada', 'si', 'no', 'no', 'no', 'si', 'si', 'si');
+
 -- --------------------------------------------------------
 
 --
@@ -168,9 +177,24 @@ INSERT INTO `donations` (`id`, `id_user`, `id_shelter`, `amount`) VALUES
 
 CREATE TABLE `favorites` (
   `id` int(11) NOT NULL,
-  `animal` varchar(255) NOT NULL,
-  `usuario` varchar(255) NOT NULL
+  `id_user` int(255) NOT NULL,
+  `id_animal` int(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `id_user`, `id_animal`) VALUES
+(7, 2, 7),
+(9, 2, 16),
+(10, 2, 9),
+(11, 2, 44),
+(12, 2, 64),
+(14, 2, 53),
+(15, 2, 19),
+(18, 2, 68),
+(20, 2, 26);
 
 -- --------------------------------------------------------
 
@@ -240,9 +264,21 @@ ALTER TABLE `animals`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `applications`
+--
+ALTER TABLE `applications`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `donations`
 --
 ALTER TABLE `donations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `favorites`
+--
+ALTER TABLE `favorites`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -265,13 +301,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=68;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+
+--
+-- AUTO_INCREMENT de la tabla `applications`
+--
+ALTER TABLE `applications`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `donations`
 --
 ALTER TABLE `donations`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT de la tabla `favorites`
+--
+ALTER TABLE `favorites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT de la tabla `shelters`

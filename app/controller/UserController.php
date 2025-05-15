@@ -5,12 +5,12 @@ class UsuerController {
 
     public function addUsuario($nombreUsuario, $contrasena, $correo, $telefono, $dni) {
         $usuario = new User();
-        $usuario->setUsuario($nombreUsuario);
-        $usuario->setCorreo($correo);
-        $usuario->setContrasena($contrasena);
+        $usuario->setUsername($nombreUsuario);
+        $usuario->setEmail($correo);
+        $usuario->setPassword($contrasena);
         $usuario->setDni($dni);
-        $usuario->setTelefono($telefono);
-        return $usuario->addUsuario();
+        $usuario->setPhone($telefono);
+        return $usuario->addUser();
     }
 
     public function comprobarUsuario($nombreUsuario, $contrasena, $usuario = null) {
