@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Procesar el formulario
             <form method="post">
                 <div class="amount-section">
                     <label>¿Que cantidad desea donar?</label>
-                    <input type="number" name="amount" class="amount-input" placeholder="Value" min="1" required value="<?php echo htmlspecialchars($_POST['amount'] ?? ''); ?>">
+                    <input type="number" name="amount" class="amount-input" placeholder="Cantidad" min="1" required value="<?php echo htmlspecialchars($_POST['amount'] ?? ''); ?>">
                     <?php if (!empty($errors['amount'])): ?>
                         <div class="input-error"><?php echo $errors['amount']; ?></div>
                     <?php endif; ?>
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Procesar el formulario
                     <div class="form-row">
                         <div class="form-group">
                             <label>Fecha caducidad:</label>
-                            <input type="text" name="expiry" required value="<?php echo htmlspecialchars($_POST['expiry'] ?? ''); ?>">
+                            <input type="text" name="expiry" placeholder="MM/YY" value="<?php echo htmlspecialchars($_POST['expiry'] ?? ''); ?>">
                             <?php if (!empty($errors['expiry'])): ?>
                                 <div class="input-error"><?php echo $errors['expiry']; ?></div>
                             <?php endif; ?>

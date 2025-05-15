@@ -1,43 +1,34 @@
 <?php
 session_start();
 require_once "../../config/dbConnection.php";
+require_once "../../app/model/User.php";
+require_once "../../app/model/Animal.php";
 require_once "../../app/model/Questionnaire.php";
+
+if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesión
+    header("Location: LoginScreen.php");
+    exit();
+}
 
 $pdo = getDBConnection();
 $questionnaireModel = new Questionnaire($pdo);
+$userModel = new User($pdo);
+$animalModel = new Animal($pdo);
 
 $success = false;
 $error = '';
 $errors = [];
 $user = null;
 
-if (isset($_SESSION['user_id'])) {
-    $stmt = $pdo->prepare("SELECT username FROM users WHERE id = ?");
-    $stmt->execute([$_SESSION['user_id']]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+try {
+    $userModel = new User($pdo);
+    $user = $userModel->getUserById($_SESSION['user_id']);
+} catch (PDOException $e) {
+    die("Error al obtener los datos: " . $e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $pets_allowed = '';
-    if (isset($_POST['vivienda_prop']) && $_POST['vivienda_prop'] === 'alquilada' && !isset($_POST['permiten_mascotas'])) {
-        $errors['permiten_mascotas'] = "Indica si permiten mascotas en la vivienda alquilada.";
-    }
-
-    if (empty($_POST['nombre'])) $errors['nombre'] = "El nombre es obligatorio.";
-    if (empty($_POST['email'])) $errors['email'] = "El email es obligatorio.";
-    if (empty($_POST['telefono'])) $errors['telefono'] = "El teléfono es obligatorio.";
-    if (empty($_POST['direccion'])) $errors['direccion'] = "La dirección es obligatoria.";
-    if (empty($_POST['vivienda'])) $errors['vivienda'] = "Selecciona el tipo de vivienda.";
-    if (isset($_POST['vivienda']) && $_POST['vivienda'] === 'alquilada' && !isset($_POST['permiten_mascotas'])) {
-        $errors['permiten_mascotas'] = "Indica si permiten mascotas en la vivienda alquilada.";
-    }
-    if (!isset($_POST['jardin'])) $errors['jardin'] = "Indica si tienes patio o jardín.";
-    if (!isset($_POST['mascotas_previas'])) $errors['mascotas_previas'] = "Indica si has tenido mascotas antes.";
-    if (!isset($_POST['mascotas_actuales'])) $errors['mascotas_actuales'] = "Indica si tienes otras mascotas.";
-    if (empty($_POST['motivo'])) $errors['motivo'] = "Cuéntanos por qué quieres adoptar.";
-    if (!isset($_POST['asumir_cuidados'])) $errors['asumir_cuidados'] = "Indica si asumirás los cuidados.";
-    if (!isset($_POST['contrato'])) $errors['contrato'] = "Indica si aceptas firmar contrato.";
-    if (!isset($_POST['seguimiento'])) $errors['seguimiento'] = "Indica si aceptas seguimiento post-adopción.";
+    $errors = $questionnaireModel->validateQuestionnaire($_POST);
 
     $pets_allowed = '';
     if (isset($_POST['vivienda_prop']) && $_POST['vivienda_prop'] === 'alquilada') {
@@ -68,6 +59,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         if ($questionnaireModel->create($data)) {
+            if (!empty($data['id_animal'])) { // Cambiar el estado del animal a "Adopción no activa"
+                require_once "../../app/model/Animal.php";
+                $animalModel->setInactive($data['id_animal']);
+            }
             $success = true;
         } else {
             $error = "Error al guardar el cuestionario.";

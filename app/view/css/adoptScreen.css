@@ -50,13 +50,13 @@ header {
 
 .side-panel {
     width: 15%;
-    background-color: #E5ECCA;
+    background-color: #dbe5b2;
 }
 
 .main-content {
     width: 70%;
     padding: 2rem;
-    margin-top: 20px;
+    margin-top: 40px;
 }
 
 .detail-grid {
@@ -77,7 +77,7 @@ header {
     width: 35px;
     height: 35px;
     padding: 8px;
-    background: #f5f5f5;
+    background: #94BA77;
     border-radius: 50%;
 }
 
@@ -119,6 +119,11 @@ h1 {
     color: #333;
     font-weight: bold;
     cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.adopt-button:hover {
+    background: #779c59;
 }
 
 .user-info-section {
@@ -135,7 +140,8 @@ h1 {
 }
 
 .related-section {
-    margin-top: 3rem;
+    margin-top: 60px;
+    margin-bottom: 30px;
 }
 
 .carousel {
@@ -159,8 +165,8 @@ h1 {
     overflow-x: hidden;
     width: 100%;
     justify-content: center;
+    margin-top: 20px;
 }
-
 
 .carousel-button {
     position: absolute;
@@ -176,11 +182,20 @@ h1 {
 }
 
 .view-more {
-    padding: 0.5rem 1.5rem;
-    background: #333;
-    color: white;
-    border: none;
-    border-radius: 4px;
+    padding: 0.5rem 1rem;
+    background: #d0d0d0;
+    color: #323232;
+    border: 2px solid #333;
+    border-radius: 10px;
+    font-weight: bold;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.view-more:hover {
+    background: #94BA77;
+    color: #323232;
+    border-color: #4C6E31;
+    cursor: pointer;
 }
 
 .animals-grid {
@@ -192,7 +207,9 @@ h1 {
 
 .animal-image-container {
     width: 100%;
-    height: 545px;
+    height: 100%;
+    border-radius: 20px;
+    border: 2.5px solid #4C6E31;
     overflow: hidden;
 }
 
@@ -222,6 +239,15 @@ h1 {
     height: 200px;
     background-color: #f5f5f5;
     object-fit: cover;
+    border-radius: 15px;
+    border: 2px solid #333;
+}
+
+.animal-info {
+    background-color: #F1F8EC;
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2.5px solid #4C6E31;
 }
 
 .card-footer {

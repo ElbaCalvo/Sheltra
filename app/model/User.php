@@ -107,6 +107,12 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getUsernameAndAddress($id) {
+        $stmt = $this->pdo->prepare("SELECT username, address FROM users WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function addUser() {
         try {
             $conn = getDBConnection();

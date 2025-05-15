@@ -48,7 +48,7 @@ h2 {
 }
 
 .upload-form {
-    background-color: #F1F8EC;
+    background-color: #DBE5B2;
     padding: 2rem;
     border-radius: 12px;
     border: 2.5px solid #4C6E31;
@@ -57,13 +57,13 @@ h2 {
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1rem;  /* Reduced from 2rem */
-    margin: 0;  /* Reset any margin */
+    gap: 1rem;
+    margin: 0;
 }
 
 .form-group {
-    margin: 0 0 1rem 0;  /* Only bottom margin */
-    padding: 0;  /* Reset any padding */
+    margin: 0 0 1rem 0;
+    padding: 0;
 }
 
 label {
@@ -127,7 +127,7 @@ textarea {
     padding: 0.7rem;
     background-color: #94BA77;
     color: #333;
-    border: none;
+    border: 2px solid #465539;
     border-radius: 10px;
     cursor: pointer;
     font-weight: bold;

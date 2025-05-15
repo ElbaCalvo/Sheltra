@@ -2,6 +2,7 @@
 session_start();
 require_once "../../config/dbConnection.php";
 require_once "../../app/model/Animal.php";
+require_once "../../app/model/User.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: LoginScreen.php");
@@ -9,53 +10,33 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $pdo = getDBConnection();
-$stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
-$stmt->bindParam(':user_id', $_SESSION['user_id']);
-$stmt->execute();
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$userModel = new User($pdo);
+$animalModel = new Animal($pdo);
+
+$user = $userModel->getUserById($_SESSION['user_id']);
 
 $id_animal = $_GET['id_animal'] ?? null;
-$animal = null;
-if ($id_animal) {
-    $animalModel = new Animal($pdo);
-    $animal = $animalModel->getById($id_animal);
-}
+$animal = $id_animal ? $animalModel->getById($id_animal) : null;
 
 $publisher = null;
 if ($animal && !empty($animal['id_user'])) {
-    $stmt = $pdo->prepare("SELECT username, address FROM users WHERE id = :id");
-    $stmt->bindParam(':id', $animal['id_user']);
-    $stmt->execute();
-    $publisher = $stmt->fetch(PDO::FETCH_ASSOC);
+    $publisher = $userModel->getUsernameAndAddress($animal['id_user']);
 }
 
 $type = $animal['type'] ?? null;
 $id_actual = $animal['id'] ?? null;
 
 if ($type) {
-    // Muestra todos los animales del mismo tipo, excepto el actual, ordenados por fecha de ingreso descendente
-    $stmt = $pdo->prepare("SELECT * FROM animals WHERE type = :type AND id != :id_actual ORDER BY entry_date DESC");
-    $stmt->bindParam(':type', $type);
-    $stmt->bindParam(':id_actual', $id_actual);
-    $stmt->execute();
-    $allAnimals = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $total = count($allAnimals);
-
-    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-    $perPage = 3;
-    $offset = ($page - 1) * $perPage;
-    $animalsPage = array_slice($allAnimals, $offset, $perPage);
+    $allAnimals = $animalModel->getByTypeExcept($type, $id_actual);
 } else {
-    // Si no hay tipo, muestra todos ordenados por fecha de ingreso descendente
-    $stmt = $pdo->query("SELECT * FROM animals ORDER BY entry_date DESC");
-    $allAnimals = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $total = count($allAnimals);
-
-    $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
-    $perPage = 3;
-    $offset = ($page - 1) * $perPage;
-    $animalsPage = array_slice($allAnimals, $offset, $perPage);
+    $allAnimals = $animalModel->getAllOrdered();
 }
+
+$total = count($allAnimals);
+$page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
+$perPage = 3;
+$offset = ($page - 1) * $perPage;
+$animalsPage = array_slice($allAnimals, $offset, $perPage);
 ?>
 
 <!DOCTYPE html>
