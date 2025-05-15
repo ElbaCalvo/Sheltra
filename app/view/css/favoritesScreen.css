@@ -64,6 +64,10 @@ header {
     border-radius: 50%;
 }
 
+.add-animal-link:hover .user-icon {
+    content: url("../../../img/add-animal.png");
+}
+
 h2 {
     color: #739659;
     margin-bottom: 2rem;

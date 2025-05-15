@@ -1,27 +1,22 @@
 <?php
 session_start();
 
+require_once "../../config/dbConnection.php";
+require_once "../../app/model/User.php";
+require_once "../../app/model/Animal.php";
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: LoginScreen.php");
     exit();
 }
 
-$host = 'localhost';
-$dbname = 'sheltra';
-$username = 'root';
-$password = '';
-
 try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $pdo = getDBConnection();
+    $userModel = new User($pdo);
+    $animalModel = new Animal($pdo);
 
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE id = :user_id");
-    $stmt->bindParam(':user_id', $_SESSION['user_id']);
-    $stmt->execute();
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-    $stmt = $pdo->query("SELECT * FROM animals ORDER BY entry_date DESC LIMIT 3");
-    $latestAnimals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $user = $userModel->getUserById($_SESSION['user_id']); 
+    $latestAnimals = $animalModel->getLatest(3);
 } catch (PDOException $e) {
     die("Error al conectar con la base de datos: " . $e->getMessage());
 }
@@ -44,6 +39,9 @@ try {
                 <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
             </a>
             <div class="user-info">
+                <a href="AnimalDataScreen.php" class="add-animal-link">
+                    <img src="../../img/add-animal-empty.png" alt="Add" class="user-icon">
+                </a>
                 <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
                 <a href="EditProfileScreen.php">
                     <img src="../../img/user-icon.png" alt="User" class="user-icon">
@@ -70,13 +68,12 @@ try {
                 <div class="animal-card">
                     <img src="<?php echo htmlspecialchars($animal['foto'] ?? '../../img/placeholder.png'); ?>" alt="Animal" class="animal-image">
                     <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                    <p><?php echo ucfirst(htmlspecialchars($animal['type'])); ?></p>
-                    <div class="card-footer">
-                        <form action="AdoptScreen.php" method="get" style="display:inline;">
-                            <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
-                            <button class="view-more" type="submit">Ver más</button>
-                        </form>
-                        <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
+                    <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>                    <div class="card-footer">
+                    <form action="AdoptScreen.php" method="get" style="display:inline;">
+                        <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                        <button class="view-more" type="submit">Ver más</button>
+                    </form>
+                    <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -134,7 +131,7 @@ try {
                 <h2>No puedes adoptar un animal? </h2>
                 <h3>No te preocupes, puedes ayudar igualmente, accede a este apartado para descubrir más</h3>
                 <a href="DonateScreen.php" class="Donar">
-                    Donar
+                    <button class="donate-button">Donar</button>
                 </a>
             </div>
         </div>

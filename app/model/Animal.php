@@ -69,6 +69,13 @@ class Animal {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getLatest($limit = 3) {
+        $stmt = $this->pdo->prepare("SELECT * FROM animals WHERE state = 'Adopción activa' ORDER BY entry_date DESC LIMIT :limit");
+        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     public function setInactive($id_animal) {
         $stmt = $this->pdo->prepare("UPDATE animals SET state = 'Adopción no activa' WHERE id = :id_animal");
         $stmt->bindParam(':id_animal', $id_animal, PDO::PARAM_INT);

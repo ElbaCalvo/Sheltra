@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
             </a>
             <div class="user-info">
+                <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
                 <a href="EditProfileScreen.php">
                     <img src="../../img/user-icon.png" alt="User" class="user-icon">
                 </a>

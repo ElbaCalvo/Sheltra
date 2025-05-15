@@ -1,10 +1,11 @@
 <?php
 require_once "../../config/dbConnection.php";
+require_once "../../app/model/Animal.php";
 
 try {
     $pdo = getDBConnection();
-    $stmt = $pdo->query("SELECT * FROM animals ORDER BY entry_date DESC LIMIT 3");
-    $latestAnimals = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $animalModel = new Animal($pdo);
+    $latestAnimals = $animalModel->getLatest(3);
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }
@@ -54,9 +55,10 @@ try {
                 <div class="animal-card">
                     <img src="<?php echo htmlspecialchars($animal['foto'] ?? '../../img/placeholder.png'); ?>" alt="Animal" class="animal-image">
                     <h3><?php echo htmlspecialchars($animal['name']); ?></h3>
-                    <p><?php echo ucfirst(htmlspecialchars($animal['type'])); ?></p>
-                    <div class="card-footer">
-                        <button class="view-more">Ver más</button>
+                        <p class="limited-description"><?php echo htmlspecialchars($animal['description']); ?></p>                    <div class="card-footer">
+                        <a href="LoginScreen.php">
+                            <button class="view-more">Ver más</button>
+                        </a>
                         <img src="../../img/empty-like.png" alt="Paw" class="paw-icon">
                     </div>
                 </div>
@@ -115,7 +117,7 @@ try {
                 <h2>No puedes adoptar un animal? </h2>
                 <h3>No te preocupes, puedes ayudar igualmente, accede a este apartado para descubrir más</h3>
                 <a href="LoginScreen.php" class="Donar">
-                    Donar
+                    <button class="donate-button">Donar</button>
                 </a>
             </div>
         </div>

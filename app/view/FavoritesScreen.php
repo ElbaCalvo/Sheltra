@@ -15,6 +15,9 @@
                 <img src="../../img/sheltra-logo.png" alt="Sheltra" class="logo">
             </a>
             <div class="user-info">
+                <a href="AnimalDataScreen.php" class="add-animal-link">
+                    <img src="../../img/add-animal-empty.png" alt="Add" class="user-icon">
+                </a>
                 <a href="EditProfileScreen.php">
                     <img src="../../img/user-icon.png" alt="User" class="user-icon">
                 </a>

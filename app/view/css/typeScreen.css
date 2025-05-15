@@ -172,7 +172,7 @@ h2 {
     border: 2px solid #4C6E31;
     border-radius: 10px;
     font-weight: bold;
-        transition: background 0.2s, color 0.2s, border-color 0.2s;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
 }
 
 .view-more:hover {
