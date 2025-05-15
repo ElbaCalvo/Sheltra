@@ -59,7 +59,9 @@ $animalsPage = array_slice($allAnimals, $offset, $perPage);
                 <a href="AnimalDataScreen.php" class="add-animal-link">
                     <img src="../../img/add-animal-empty.png" alt="Add" class="user-icon">
                 </a>
-                <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
+                <a href="FavoritesScreen.php">
+                    <img src="../../img/favorites-icon.png" alt="Favorites" class="favorites-icon">
+                </a>
                 <a href="EditProfileScreen.php">
                     <img src="../../img/user-icon.png" alt="User" class="user-icon">
                 </a>
