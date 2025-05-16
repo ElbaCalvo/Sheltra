@@ -27,35 +27,33 @@ try {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pets_allowed = '';
-    if (isset($_POST['vivienda_prop']) && $_POST['vivienda_prop'] === 'alquilada') {
-        $pets_allowed = $_POST['permiten_mascotas'] ?? '';
+    if (isset($_POST['ownership_status']) && $_POST['ownership_status'] === 'alquilada') {
+        $pets_allowed = $_POST['pets_allowed'] ?? '';
     }
 
     $data = [
         'id_user'         => $_SESSION['user_id'],
         'id_animal' => $_POST['id_animal'] ?? $_GET['id_animal'] ?? '',
         'date'            => date('Y-m-d'),
-        'status'          => 'pendiente',
-        'text'            => $_POST['motivo'] ?? '',
+        'status'          => 'status',
+        'text'            => $_POST['text'] ?? '',
         'resolution'      => '',
-        'applic_name'     => $_POST['nombre'] ?? '',
-        'applic_mail'     => $_POST['email'] ?? '',
-        'applic_phone'    => $_POST['telefono'] ?? '',
-        'applic_address'  => $_POST['direccion'] ?? '',
-        'housing_type'    => $_POST['vivienda'] ?? '',
-        'ownership_status' => $_POST['vivienda_prop'] ?? ($_POST['vivienda'] ?? ''),
+        'applic_name'     => $_POST['applic_name'] ?? '',
+        'applic_mail'     => $_POST['applic_mail'] ?? '',
+        'applic_phone'    => $_POST['applic_phone'] ?? '',
+        'applic_address'  => $_POST['applic_address'] ?? '',
+        'housing_type'    => $_POST['housing_type'] ?? '',
+        'ownership_status' => $_POST['ownership_status'] ?? ($_POST['housing_type'] ?? ''),
         'pets_allowed'    => $pets_allowed,
-        'outdoor_space'   => $_POST['jardin'] ?? '',
-        'pets_before'     => $_POST['mascotas_previas'] ?? '',
-        'other_pets'      => $_POST['mascotas_actuales'] ?? '',
-        'maintenance'     => $_POST['asumir_cuidados'] ?? '',
-        'contract'        => $_POST['contrato'] ?? '',
-        'post_adop'       => $_POST['seguimiento'] ?? ''
+        'outdoor_space'   => $_POST['outdoor_space'] ?? '',
+        'pets_before'     => $_POST['pets_before'] ?? '',
+        'other_pets'      => $_POST['other_pets'] ?? '',
+        'maintenance'     => $_POST['maintenance'] ?? '',
+        'contract'        => $_POST['contract'] ?? '',
+        'post_adop'       => $_POST['post_adop'] ?? ''
     ];
 
     $errors = $questionnaireController->validateQuestionnaire($_POST);
-
-    echo '<pre>'; print_r($data); echo '</pre>';
 
     if (empty($errors)) {
         if ($questionnaireController->submitQuestionnaire($data)) {
@@ -126,32 +124,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h3>Datos personales</h3>
                     <div class="form-group">
                         <label>Nombre completo</label>
-                        <input type="text" name="nombre" placeholder="Lorena Gómez López" required value="<?php echo htmlspecialchars($_POST['nombre'] ?? ''); ?>">
-                        <?php if (!empty($errors['nombre'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['nombre']; ?></div>
+                        <input type="text" name="applic_name" placeholder="Lorena Gómez López" required value="<?php echo htmlspecialchars($_POST['applic_name'] ?? ''); ?>">
+                        <?php if (!empty($errors['applic_name'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['applic_name']; ?></div>
                         <?php endif; ?>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label>Correo electrónico</label>
-                            <input type="email" name="email" placeholder="lorena123@gmail.com" required value="<?php echo htmlspecialchars($_POST['email'] ?? ''); ?>">
-                            <?php if (!empty($errors['email'])): ?>
-                                <div style="color: #dc3545;"><?php echo $errors['email']; ?></div>
+                            <input type="email" name="applic_mail" placeholder="lorena123@gmail.com" required value="<?php echo htmlspecialchars($_POST['applic_mail'] ?? ''); ?>">
+                            <?php if (!empty($errors['applic_mail'])): ?>
+                                <div style="color: #dc3545;"><?php echo $errors['applic_mail']; ?></div>
                             <?php endif; ?>
                         </div>
                         <div class="form-group">
                             <label>Teléfono</label>
-                            <input type="tel" name="telefono" placeholder="111 11 11 11" required value="<?php echo htmlspecialchars($_POST['telefono'] ?? ''); ?>">
-                            <?php if (!empty($errors['telefono'])): ?>
-                                <div style="color: #dc3545;"><?php echo $errors['telefono']; ?></div>
+                            <input type="tel" name="applic_phone" placeholder="111 11 11 11" required value="<?php echo htmlspecialchars($_POST['applic_phone'] ?? ''); ?>">
+                            <?php if (!empty($errors['applic_phone'])): ?>
+                                <div style="color: #dc3545;"><?php echo $errors['applic_phone']; ?></div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <label>Dirección</label>
-                        <input type="text" name="direccion" placeholder="Calle Ejemplo, Nº3" required value="<?php echo htmlspecialchars($_POST['direccion'] ?? ''); ?>">
-                        <?php if (!empty($errors['direccion'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['direccion']; ?></div>
+                        <input type="text" name="applic_address" placeholder="Calle Ejemplo, Nº3" required value="<?php echo htmlspecialchars($_POST['applic_address'] ?? ''); ?>">
+                        <?php if (!empty($errors['applic_address'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['applic_address']; ?></div>
                         <?php endif; ?>
                     </div>
 
@@ -159,45 +157,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>Tipo de vivienda:</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="vivienda" value="casa" <?php if (($_POST['vivienda'] ?? '') == 'casa') echo 'checked'; ?>> Casa</label>
-                            <label><input type="radio" name="vivienda" value="piso" <?php if (($_POST['vivienda'] ?? '') == 'piso') echo 'checked'; ?>> Piso</label>
-                            <label><input type="radio" name="vivienda" value="otro" <?php if (($_POST['vivienda'] ?? '') == 'otro') echo 'checked'; ?>> Otro</label>
+                            <label><input type="radio" name="housing_type" value="casa" <?php if (($_POST['housing_type'] ?? '') == 'casa') echo 'checked'; ?>> Casa</label>
+                            <label><input type="radio" name="housing_type" value="piso" <?php if (($_POST['housing_type'] ?? '') == 'piso') echo 'checked'; ?>> Piso</label>
+                            <label><input type="radio" name="housing_type" value="otro" <?php if (($_POST['housing_type'] ?? '') == 'otro') echo 'checked'; ?>> Otro</label>
                         </div>
-                        <?php if (!empty($errors['vivienda'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['vivienda']; ?></div>
+                        <?php if (!empty($errors['housing_type'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['housing_type']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Es vivienda propia o alquilada?</label>
-                        <select name="vivienda_prop" class="form-select">
-                            <option value="propia" <?php if (($_POST['vivienda_prop'] ?? '') == 'propia') echo 'selected'; ?>>Propia</option>
-                            <option value="alquilada" <?php if (($_POST['vivienda_prop'] ?? '') == 'alquilada') echo 'selected'; ?>>Alquilada</option>
+                        <select name="ownership_status" class="form-select">
+                            <option value="propia" <?php if (($_POST['ownership_status'] ?? '') == 'propia') echo 'selected'; ?>>Propia</option>
+                            <option value="alquilada" <?php if (($_POST['ownership_status'] ?? '') == 'alquilada') echo 'selected'; ?>>Alquilada</option>
                         </select>
-                        <?php if (!empty($errors['vivienda_prop'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['vivienda_prop']; ?></div>
+                        <?php if (!empty($errors['ownership_status'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['ownership_status']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Permiten mascotas? (en caso de alquiler)</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="permiten_mascotas" value="si" <?php if (($_POST['permiten_mascotas'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="permiten_mascotas" value="no" <?php if (($_POST['permiten_mascotas'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="pets_allowed" value="si" <?php if (($_POST['pets_allowed'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="pets_allowed" value="no" <?php if (($_POST['pets_allowed'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['permiten_mascotas'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['permiten_mascotas']; ?></div>
+                        <?php if (!empty($errors['pets_allowed'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['pets_allowed']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Tienes patio o jardín?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="jardin" value="si" <?php if (($_POST['jardin'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="jardin" value="no" <?php if (($_POST['jardin'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="outdoor_space" value="si" <?php if (($_POST['outdoor_space'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="outdoor_space" value="no" <?php if (($_POST['outdoor_space'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['jardin'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['jardin']; ?></div>
+                        <?php if (!empty($errors['outdoor_space'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['outdoor_space']; ?></div>
                         <?php endif; ?>
                     </div>
 
@@ -205,30 +203,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>¿Has tenido mascotas antes?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="mascotas_previas" value="si" <?php if (($_POST['mascotas_previas'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="mascotas_previas" value="no" <?php if (($_POST['mascotas_previas'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="pets_before" value="si" <?php if (($_POST['pets_before'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="pets_before" value="no" <?php if (($_POST['pets_before'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['mascotas_previas'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['mascotas_previas']; ?></div>
+                        <?php if (!empty($errors['pets_before'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['pets_before']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Tienes otras mascotas actualmente?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="mascotas_actuales" value="si" <?php if (($_POST['mascotas_actuales'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="mascotas_actuales" value="no" <?php if (($_POST['mascotas_actuales'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="other_pets" value="si" <?php if (($_POST['other_pets'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="other_pets" value="no" <?php if (($_POST['other_pets'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['mascotas_actuales'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['mascotas_actuales']; ?></div>
+                        <?php if (!empty($errors['other_pets'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['other_pets']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Por qué quieres adoptar?</label>
-                        <textarea name="motivo" rows="4"><?php echo htmlspecialchars($_POST['motivo'] ?? ''); ?></textarea>
-                        <?php if (!empty($errors['motivo'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['motivo']; ?></div>
+                        <textarea name="text" rows="4"><?php echo htmlspecialchars($_POST['text'] ?? ''); ?></textarea>
+                        <?php if (!empty($errors['text'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['text']; ?></div>
                         <?php endif; ?>
                     </div>
 
@@ -236,33 +234,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-group">
                         <label>¿Estás dispuesto/a a asumir los cuidados?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="asumir_cuidados" value="si" <?php if (($_POST['asumir_cuidados'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="asumir_cuidados" value="no" <?php if (($_POST['asumir_cuidados'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="maintenance" value="si" <?php if (($_POST['maintenance'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="maintenance" value="no" <?php if (($_POST['maintenance'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['asumir_cuidados'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['asumir_cuidados']; ?></div>
+                        <?php if (!empty($errors['maintenance'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['maintenance']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Estás de acuerdo en firmar un contrato de adopción?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="contrato" value="si" <?php if (($_POST['contrato'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="contrato" value="no" <?php if (($_POST['contrato'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="contract" value="si" <?php if (($_POST['contract'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="contract" value="no" <?php if (($_POST['contract'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['contrato'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['contrato']; ?></div>
+                        <?php if (!empty($errors['contract'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['contract']; ?></div>
                         <?php endif; ?>
                     </div>
 
                     <div class="form-group">
                         <label>¿Aceptarías seguimiento post-adopción si es necesario?</label>
                         <div class="radio-group">
-                            <label><input type="radio" name="seguimiento" value="si" <?php if (($_POST['seguimiento'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
-                            <label><input type="radio" name="seguimiento" value="no" <?php if (($_POST['seguimiento'] ?? '') == 'no') echo 'checked'; ?>> No</label>
+                            <label><input type="radio" name="post_adop" value="si" <?php if (($_POST['post_adop'] ?? '') == 'si') echo 'checked'; ?>> Sí</label>
+                            <label><input type="radio" name="post_adop" value="no" <?php if (($_POST['post_adop'] ?? '') == 'no') echo 'checked'; ?>> No</label>
                         </div>
-                        <?php if (!empty($errors['seguimiento'])): ?>
-                            <div style="color: #dc3545;"><?php echo $errors['seguimiento']; ?></div>
+                        <?php if (!empty($errors['post_adop'])): ?>
+                            <div style="color: #dc3545;"><?php echo $errors['post_adop']; ?></div>
                         <?php endif; ?>
                     </div>
 

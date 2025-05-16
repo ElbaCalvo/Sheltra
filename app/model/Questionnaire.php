@@ -1,15 +1,18 @@
 <?php
 // filepath: c:\xampp\htdocs\Sheltra\app\model\Questionnaire.php
 
-class Questionnaire {
+class Questionnaire
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function create($data) {
-    $stmt = $this->pdo->prepare("
+    public function create($data)
+    {
+        $stmt = $this->pdo->prepare("
         INSERT INTO applications (
             id_user, id_animal, date, status, text, resolution,
             applic_name, applic_mail, applic_phone, applic_address,
@@ -22,33 +25,37 @@ class Questionnaire {
             :pets_before, :other_pets, :maintenance, :contract, :post_adop
         )
     ");
-    $result = $stmt->execute($data);
-    if (!$result) {
-        echo '<pre>';
-        print_r($stmt->errorInfo());
-        echo '</pre>';
-    }
-    return $result;
+        $result = $stmt->execute($data);
+        if (!$result) {
+            echo '<pre>';
+            print_r($stmt->errorInfo());
+            echo '</pre>';
+        }
+        return $result;
     }
 
-    public function validateQuestionnaire($post) {
+    public function validateQuestionnaire($post)
+    {
         $errors = [];
 
-        if (empty($post['nombre'])) $errors['nombre'] = "El nombre es obligatorio.";
-        if (empty($post['email'])) $errors['email'] = "El email es obligatorio.";
-        if (empty($post['telefono'])) $errors['telefono'] = "El teléfono es obligatorio.";
-        if (empty($post['direccion'])) $errors['direccion'] = "La dirección es obligatoria.";
-        if (empty($post['vivienda'])) $errors['vivienda'] = "Selecciona el tipo de vivienda.";
-        if (isset($post['vivienda']) && $post['vivienda'] === 'alquilada' && !isset($post['permiten_mascotas'])) {
-            $errors['permiten_mascotas'] = "Indica si permiten mascotas en la vivienda alquilada.";
+        if (empty($post['applic_name'])) $errors['applic_name'] = "El nombre es obligatorio.";
+        if (empty($post['applic_mail'])) $errors['applic_mail'] = "El email es obligatorio.";
+        if (empty($post['applic_phone'])) $errors['applic_phone'] = "El teléfono es obligatorio.";
+        if (empty($post['applic_address'])) $errors['applic_address'] = "La dirección es obligatoria.";
+        if (empty($post['housing_type'])) $errors['housing_type'] = "Selecciona el tipo de vivienda.";
+        if (empty($post['ownership_status'])) $errors['ownership_status'] = "Indica si la vivienda es propia o alquilada.";
+
+        if (isset($post['ownership_status']) && $post['ownership_status'] === 'alquilada' && !isset($post['pets_allowed'])) {
+            $errors['pets_allowed'] = "Indica si permiten mascotas en la vivienda alquilada.";
         }
-        if (!isset($post['jardin'])) $errors['jardin'] = "Indica si tienes patio o jardín.";
-        if (!isset($post['mascotas_previas'])) $errors['mascotas_previas'] = "Indica si has tenido mascotas antes.";
-        if (!isset($post['mascotas_actuales'])) $errors['mascotas_actuales'] = "Indica si tienes otras mascotas.";
-        if (empty($post['motivo'])) $errors['motivo'] = "Cuéntanos por qué quieres adoptar.";
-        if (!isset($post['asumir_cuidados'])) $errors['asumir_cuidados'] = "Indica si asumirás los cuidados.";
-        if (!isset($post['contrato'])) $errors['contrato'] = "Indica si aceptas firmar contrato.";
-        if (!isset($post['seguimiento'])) $errors['seguimiento'] = "Indica si aceptas seguimiento post-adopción.";
+
+        if (!isset($post['outdoor_space'])) $errors['outdoor_space'] = "Indica si tienes patio o jardín.";
+        if (!isset($post['pets_before'])) $errors['pets_before'] = "Indica si has tenido mascotas antes.";
+        if (!isset($post['other_pets'])) $errors['other_pets'] = "Indica si tienes otras mascotas.";
+        if (empty($post['text'])) $errors['text'] = "Cuéntanos por qué quieres adoptar.";
+        if (!isset($post['maintenance'])) $errors['maintenance'] = "Indica si asumirás los cuidados.";
+        if (!isset($post['contract'])) $errors['contract'] = "Indica si aceptas firmar contrato.";
+        if (!isset($post['post_adop'])) $errors['post_adop'] = "Indica si aceptas seguimiento post-adopción.";
 
         return $errors;
     }
