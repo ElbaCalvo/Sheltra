@@ -100,7 +100,10 @@ try {
                                     </div>
                                 </div>
                                 <p class="description"><?php echo htmlspecialchars($animal['description']); ?></p>
-                                <button class="view-more">Ver más</button>
+                                <form action="AdoptScreen.php" method="get" style="display:inline;">
+                                    <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($animal['id']); ?>">
+                                    <button class="view-more" type="submit">Ver más</button>
+                                </form>
                             </div>
                         </div>
                     <?php endforeach; ?>
