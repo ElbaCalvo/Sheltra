@@ -1,7 +1,7 @@
 <?php
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/User.php";
-require_once "../../app/model/Animal.php";
+require_once "../../app/controller/UserController.php";
+require_once "../../app/controller/AnimalController.php";
 
 session_start();
 
@@ -23,26 +23,23 @@ $typeImages = [
 
 $typeImage = $typeImages[$type] ?? '../../img/default-banner.jpg';
 
+$animalController = new AnimalController();
+$userController = new UserController();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
-    $pdo = getDBConnection();
-    $animalModel = new Animal($pdo);
     if (isset($_POST['remove_favorite'])) {
-        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
     } else {
-        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
     }
-    header("Location: LoggedTypeScreen.php" . "?type=" . urlencode($type));
+    header("Location: LoggedTypeScreen.php?type=" . urlencode($type));
     exit();
 }
 
 try {
-    $pdo = getDBConnection();
-    $userModel = new User($pdo);
-    $animalModel = new Animal($pdo);
-
-    $user = $userModel->getUserById($_SESSION['user_id']);
-    $animals = $animalModel->getByType($type);
-    $userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
+    $user = $userController->getUserById($_SESSION['user_id']);
+    $animals = $animalController->getAnimalsByType($type);
+    $userFavorites = array_column($animalController->getFavorites($_SESSION['user_id']), 'id');
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }

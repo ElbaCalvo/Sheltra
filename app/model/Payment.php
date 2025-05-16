@@ -9,11 +9,9 @@ class Payment
         $this->pdo = $pdo;
     }
 
-    public function validate($data) {
+    public function validatePayment($data) {
         $errors = [];
         $iban = str_replace(' ', '', strtoupper($data['card_number']));
-
-        // Validaciones de los campos
         
         if ($data['amount'] <= 0) {
             $errors['amount'] = "Introduce una cantidad válida.";
@@ -42,6 +40,6 @@ class Payment
 
     public function saveDonation($user_id, $id_shelter, $amount) {
         $donations = new Donations($this->pdo);
-        return $donations->create($user_id, $id_shelter, $amount);
+        return $donations->addDonation($user_id, $id_shelter, $amount);
     }
 }

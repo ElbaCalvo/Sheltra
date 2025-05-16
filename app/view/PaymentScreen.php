@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/User.php";
-require_once "../../app/model/Payment.php";
+require_once "../../app/controller/UserController.php";
+require_once "../../app/controller/PaymentController.php";
 
 if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesión
     header("Location: LoginScreen.php");
@@ -12,15 +12,14 @@ if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesi
 $errors = [];
 
 try {
-    $pdo = getDBConnection();
-    $userModel = new User($pdo);
-    $user = $userModel->getUserById($_SESSION['user_id']);
+    $userController = new UserController();
+    $user = $userController->getUserById($_SESSION['user_id']);
 } catch (PDOException $e) {
     die("Error al obtener los datos: " . $e->getMessage());
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Procesar el formulario
-    $payment = new Payment($pdo);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $paymentController = new PaymentController();
     $data = [
         'amount' => $_POST['amount'] ?? '',
         'card_number' => $_POST['card_number'] ?? '',
@@ -29,20 +28,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') { // Procesar el formulario
     ];
     $id_shelter = $_POST['id_shelter'] ?? $_GET['id_shelter'] ?? '';
 
-    $errors = $payment->validate($data);
+    $result = $paymentController->validatePayment($data, $_SESSION['user_id'], $id_shelter);
 
-    if (empty($errors) && !empty($id_shelter)) {
-        try {
-            $result = $payment->saveDonation($_SESSION['user_id'], $id_shelter, $data['amount']);
-            if ($result) {
-                header("Location: PaymentScreen.php?success=1&id_shelter=" . urlencode($id_shelter));
-                exit();
-            } else {
-                $errors['general'] = "Error al guardar la donación.";
-            }
-        } catch (PDOException $e) {
-            $errors['general'] = "Error al guardar la donación: " . $e->getMessage();
-        }
+    if (is_array($result) && !empty($result)) {
+        $errors = $result;
+    } elseif ($result) {
+        header("Location: PaymentScreen.php?success=1&id_shelter=" . urlencode($id_shelter));
+        exit();
+    } else {
+        $errors['general'] = "Error al guardar la donación.";
     }
 }
 ?>

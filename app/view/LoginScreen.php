@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require_once "../../app/model/User.php";
+require_once "../../app/controller/UserController.php";
 require_once "../../config/dbConnection.php";
 
 $host = 'localhost';

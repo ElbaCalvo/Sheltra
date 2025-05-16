@@ -1,8 +1,8 @@
 <?php
 session_start();
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/Animal.php";
-require_once "../../app/model/User.php";
+require_once "../../app/controller/AnimalController.php";
+require_once "../../app/controller/UserController.php";
 
 if (!isset($_SESSION['user_id'])) {
     header("Location: LoginScreen.php");
@@ -10,41 +10,39 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
-    $pdo = getDBConnection();
-    $animalModel = new Animal($pdo);
+    $animalController = new AnimalController();
     if (isset($_POST['remove_favorite'])) {
-        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
     } else {
-        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
     }
     header("Location: AdoptScreen.php?id_animal=" . urlencode($_GET['id_animal'] ?? '') . "&page=" . ($_GET['page'] ?? 1));
     exit();
 }
 
-$pdo = getDBConnection();
-$userModel = new User($pdo);
-$animalModel = new Animal($pdo);
+$userController = new UserController();
+$animalController = new AnimalController();
 
-$user = $userModel->getUserById($_SESSION['user_id']);
+$user = $userController->getUserById($_SESSION['user_id']);
 
 $id_animal = $_GET['id_animal'] ?? null;
-$animal = $id_animal ? $animalModel->getById($id_animal) : null;
+$animal = $id_animal ? $animalController->getAnimalById($id_animal) : null;
 
 $publisher = null;
 if ($animal && !empty($animal['id_user'])) {
-    $publisher = $userModel->getUsernameAndAddress($animal['id_user']);
+    $publisher = $userController->getUsernameAndAddress($animal['id_user']);
 }
 
 $type = $animal['type'] ?? null;
 $id_actual = $animal['id'] ?? null;
 
 if ($type) {
-    $allAnimals = $animalModel->getByTypeExcept($type, $id_actual);
+    $allAnimals = $animalController->getAnimalsByTypeExcept($type, $id_actual);
 } else {
-    $allAnimals = $animalModel->getAllOrdered();
+    $allAnimals = $animalController->getAllAnimalsOrdered();
 }
 
-$userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
+$userFavorites = array_column($animalController->getFavorites($_SESSION['user_id']), 'id');
 $total = count($allAnimals);
 $page = isset($_GET['page']) ? max(1, intval($_GET['page'])) : 1;
 $perPage = 3;

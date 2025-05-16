@@ -1,7 +1,7 @@
 <?php
 session_start();
-require_once "../../app/model/Animal.php";
-require_once "../../app/model/User.php";
+require_once "../../app/controller/AnimalController.php";
+require_once "../../app/controller/UserController.php";
 require_once "../../config/dbConnection.php";
 
 if (!isset($_SESSION['user_id'])) {
@@ -13,43 +13,43 @@ $errors = [];
 $success = false;
 
 try {
-    $pdo = getDBConnection();
-    $userModel = new User($pdo);
-    $user = $userModel->getUserById($_SESSION['user_id']);
+    $userController = new UserController();
+    $user = $userController->getUserById($_SESSION['user_id']);
 } catch (PDOException $e) {
     die("Error al obtener los datos del usuario: " . $e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    try {
-        $pdo = getDBConnection();
+    
+    $animalController = new AnimalController();
 
-        $animal = new Animal($pdo);
+    // Prepara los datos
+    $data = [
+        'name' => trim($_POST['nombre']),
+        'type' => trim($_POST['tipo']),
+        'age' => trim($_POST['edad']),
+        'sex' => trim($_POST['sexo']),
+        'size' => trim($_POST['tamano']),
+        'description' => trim($_POST['descripcion']),
+        'foto' => trim($_POST['foto']),
+        'entry_date' => trim($_POST['fecha_ingreso']),
+        'state' => trim($_POST['estado'])
+    ];
 
-        $animal->name = trim($_POST['nombre']);
-        $animal->type = trim($_POST['tipo']);
-        $animal->age = trim($_POST['edad']);
-        $animal->sex = trim($_POST['sexo']);
-        $animal->size = trim($_POST['tamano']);
-        $animal->description = trim($_POST['descripcion']);
-        $animal->foto = trim($_POST['foto']);
-        $animal->entry_date = trim($_POST['fecha_ingreso']);
-        $animal->state = trim($_POST['estado']);
-
-        $errors = $animal->validateAnimal();
-
-        if (empty($errors)) {
-            if ($animal->addAnimal($_SESSION['user_id'])) {
-                $success = true;
-                $_SESSION['success'] = "El animal se ha subido correctamente.";
-                header("Location: AnimalDataScreen.php");
-                exit();
-            } else {
-                $errors['general'] = "Hubo un error al subir el animal. Inténtalo de nuevo.";
-            }
+    $errors = $animalController->validateAnimal($data);
+    if (empty($errors)) {
+        if ($animalController->addAnimal(
+            $data['name'], $data['type'], $data['age'], $data['sex'],
+            $data['size'], $data['description'], $data['foto'],
+            $data['entry_date'], $data['state'], $_SESSION['user_id']
+        )) {
+            $success = true;
+            $_SESSION['success'] = "El animal se ha subido correctamente.";
+            header("Location: AnimalDataScreen.php");
+            exit();
+        } else {
+            $errors['general'] = "Hubo un error al subir el animal. Inténtalo de nuevo.";
         }
-    } catch (PDOException $e) {
-        $errors['general'] = "Error al conectar con la base de datos: " . $e->getMessage();
     }
 }
 ?>
@@ -188,7 +188,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <textarea name="descripcion" placeholder="Bigotes es un gato tranquilo y le encanta dormir..."></textarea>
                 </div>
 
-                <button type="submit" class="upload-button">Subir producto</button>
+                <button type="submit" class="upload-button">Subir animal</button>
             </form>
         </div>
     </div>

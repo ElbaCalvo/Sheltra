@@ -1,6 +1,6 @@
 <?php
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/Animal.php";
+require_once "../../app/controller/AnimalController.php";
 
 $type = isset($_GET['type']) ? htmlspecialchars($_GET['type']) : 'Desconocido';
 
@@ -16,9 +16,8 @@ $typeImages = [
 $typeImage = $typeImages[$type] ?? '../../img/default-banner.jpg';
 
 try {
-    $pdo = getDBConnection();
-    $animalModel = new Animal($pdo);
-    $animals = $animalModel->getByType($type);
+    $animalController = new AnimalController();
+    $animals = $animalController->getAnimalsByType($type);
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }

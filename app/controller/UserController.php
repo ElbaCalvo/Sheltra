@@ -1,44 +1,83 @@
 <?php
 require_once __DIR__ . '/../model/User.php';
 
-class UsuerController {
+class UserController {
 
-    public function addUsuario($nombreUsuario, $contrasena, $correo, $telefono, $dni) {
-        $usuario = new User();
-        $usuario->setUsername($nombreUsuario);
-        $usuario->setEmail($correo);
-        $usuario->setPassword($contrasena);
+    public function addUser($username, $email, $password, $dni, $phone, $address) {
+        $usuario = new User(getDBConnection());
+        $usuario->setUsername($username);
+        $usuario->setEmail($email);
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        $usuario->setPassword($hashedPassword);
         $usuario->setDni($dni);
-        $usuario->setPhone($telefono);
-        return $usuario->addUser();
+        $usuario->setPhone($phone);
+        $usuario->setAddress($address);
+        return $usuario->addUser($username, $email, $hashedPassword, $dni, $phone, $address);
     }
 
-    public function comprobarUsuario($nombreUsuario, $contrasena, $usuario = null) {
-        if ($usuario === null) {
-            $usuario = new User();
-        }
-        $usuario->setUsuario($nombreUsuario);
-        $usuario->setContrasena($contrasena);
-        return $usuario->comprobarUsuario();
+    public function getUserById($user_id) {
+        $usuario = new User(getDBConnection());
+        return $usuario->getUserById($user_id);
     }
 
-    public function updateUsuario($usuario, $correo, $contrasena, $dni, $telefono, $direccion, $cuentaBanco) {
-        try {
-            $conn = getDBConnection();
-            $sql = $conn->prepare("UPDATE usuarios SET Contraseña = :contrasena, Correo_electronico = :correo, TELEFONO = :telefono, DNI = :dni, Direccion = :direccion, Cuenta_bancaria = :cuentaBanco WHERE Nombre = :nombre");
-            $sql->bindParam(':nombre', $usuario);
-            $sql->bindParam(':contrasena', $contrasena);
-            $sql->bindParam(':correo', $correo);
-            $sql->bindParam(':telefono', $telefono);
-            $sql->bindParam(':dni', $dni);
-            $sql->bindParam(':direccion', $direccion);
-            $sql->bindParam(':cuentaBanco', $cuentaBanco);
-            $sql->execute();
-            return true;
-        } catch (PDOException $e) {
-            echo "Error: " . $e->getMessage();
-            return false;
+    public function getUsernameAndAddress($user_id) {
+        $usuario = new User(getDBConnection());
+        return $usuario->getUsernameAndAddress($user_id);
+    }
+
+    public function emailExistsEdit($email, $excludeUserId) {
+        $usuario = new User(getDBConnection());
+        $usuario->setEmail($email);
+        return $usuario->emailExistsEdit($excludeUserId);
+    }
+
+    public function emailExists($email) {
+        $usuario = new User(getDBConnection());
+        return $usuario->emailExistsEdit($email);
+    }
+
+    public function profileUpdate($user_id, $username, $email, $dni, $phone, $password, $address) {
+        $usuario = new User(getDBConnection());
+        $usuario->setUsername($username);
+        $usuario->setEmail($email);
+        $usuario->setDni($dni);
+        $usuario->setPhone($phone);
+        $usuario->setPassword($password);
+        $usuario->setAddress($address);
+        return $usuario->profileUpdate($user_id);
+    }
+
+    public function deleteUser($user_id) {
+        $usuario = new User(getDBConnection());
+        return $usuario->deleteUser($user_id);
+    }
+
+    public static function validateLogin($email, $password) {
+        return User::validateLogin($email, $password);
+    }
+
+    public static function validateRegister($username, $phone, $email, $password, $confirm_password, $dni) {
+        return User::validateRegister($username, $phone, $email, $password, $confirm_password, $dni);
+    }
+
+    public function userLogout() {
+        session_unset();
+        session_destroy();
+        header("Location: LoginScreen.php");
+        exit();
+    }
+
+    public function login($email, $password) {
+        $user = new User(getDBConnection());
+        $user->setEmail($email);
+        $user->setPassword($password);
+        if ($user->checkUsuario()) {
+            return [
+                'id' => $user->getId(),
+                'username' => $user->getUsername()
+            ];
         }
+        return false;
     }
 }
 ?>

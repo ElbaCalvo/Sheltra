@@ -1,11 +1,10 @@
 <?php
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/Animal.php";
+require_once "../../app/controller/AnimalController.php";
 
 try {
-    $pdo = getDBConnection();
-    $animalModel = new Animal($pdo);
-    $latestAnimals = $animalModel->getLatest(3);
+    $animalController = new AnimalController();
+    $latestAnimals = $animalController->getLatestAnimals(3);
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }

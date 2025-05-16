@@ -1,7 +1,7 @@
 <?php
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/User.php";
-require_once "../../app/model/Donations.php";
+require_once "../../app/controller/UserController.php";
+require_once "../../app/controller/DonationsController.php";
 
 session_start();
 
@@ -11,15 +11,11 @@ if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesi
 }
 
 try {
-    $pdo = getDBConnection();
+    $userController = new UserController();
+    $user = $userController->getUserById($_SESSION['user_id']);
 
-    // Obtener el usuario
-    $userModel = new User($pdo);
-    $user = $userModel->getUserById($_SESSION['user_id']);
-
-    // Obtener todos los refugios
-    $donationsModel = new Donations($pdo);
-    $shelters = $donationsModel->getAllShelters();
+    $donationsController = new DonationsController();
+    $shelters = $donationsController->getAllShelters();
 } catch (PDOException $e) {
     die("Error al obtener los datos: " . $e->getMessage());
 }

@@ -12,7 +12,7 @@ class Donations {
         $this->pdo = $pdo;
     }
 
-    public function create($id_user, $id_shelter, $amount) {
+    public function addDonation($id_user, $id_shelter, $amount) {
         $stmt = $this->pdo->prepare(
             "INSERT INTO donations (id_user, id_shelter, amount) VALUES (:id_user, :id_shelter, :amount)"
         );

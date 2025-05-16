@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../../app/model/User.php";
+require_once "../../app/controller/UserController.php";
 require_once "../../config/dbConnection.php";
 
 if (!isset($_SESSION['user_id'])) {
@@ -11,10 +11,8 @@ if (!isset($_SESSION['user_id'])) {
 $errors = [];
 $success = false;
 
-$pdo = getDBConnection();
-
-$userModel = new User($pdo);
-$user = $userModel->getUserById($_SESSION['user_id']);
+$userController = new UserController();
+$user = $userController->getUserById($_SESSION['user_id']);
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -26,24 +24,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $confirm_password = trim($_POST['confirm_password'] ?? '');
     $address = trim($_POST['address'] ?? '');
 
-    $userObj = new User($pdo);
-    $userObj->setUsername($username);
-    $userObj->setEmail($email);
-    $userObj->setDni($dni);
-    $userObj->setPhone($phone);
-    $userObj->setPassword($password);
-    $userObj->setAddress($address);
-
     $errors = User::validateRegister($username, $phone, $email, $password, $confirm_password, $dni);
 
     if (empty($errors)) {
-        if ($userObj->emailExistsEdit()) {
+        if ($userController->emailExistsEdit($email, $_SESSION['user_id'])) {
             $errors['email'] = "El correo electrónico ya está registrado.";
         }
     }
 
     if (empty($errors)) {
-        if ($userObj->profileUpdate($_SESSION['user_id'])) {
+        if ($userController->profileUpdate($_SESSION['user_id'], $username, $email, $dni, $phone, $password, $address)) {
             $_SESSION['success'] = "Perfil actualizado correctamente.";
             header("Location: EditProfileScreen.php");
             exit();
@@ -54,15 +44,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 if (isset($_POST['logout'])) {
-    $userModel = new User($pdo);
-    $userModel->userLogout();
+    $userController->userLogout();
 }
 
 $user_id = $_SESSION['user_id'];
 
 if (isset($_POST['delete_account'])) {
-    $userModel = new User($pdo);
-    if ($userModel->deleteUser($user_id)) {
+    if ($userController->deleteUser($user_id)) {
         session_destroy();
         header("Location: RegisterScreen.php");
         exit();

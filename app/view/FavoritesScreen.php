@@ -1,7 +1,7 @@
 <?php
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/Animal.php";
-require_once "../../app/model/User.php";
+require_once "../../app/controller/AnimalController.php";
+require_once "../../app/controller/UserController.php";
 
 session_start();
 
@@ -10,26 +10,23 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+$animalController = new AnimalController();
+$userController = new UserController();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['animal_id'])) {
-    $pdo = getDBConnection();
-    $animalModel = new Animal($pdo);
     if (isset($_POST['remove_favorite'])) {
-        $animalModel->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->removeFavorite($_SESSION['user_id'], $_POST['animal_id']);
     } else {
-        $animalModel->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
+        $animalController->addFavorite($_SESSION['user_id'], $_POST['animal_id']);
     }
     header("Location: FavoritesScreen.php");
     exit();
 }
 
 try {
-    $pdo = getDBConnection();
-    $userModel = new User($pdo);
-    $animalModel = new Animal($pdo);
-
-    $user = $userModel->getUserById($_SESSION['user_id']);
-    $animals = $animalModel->getFavorites($_SESSION['user_id']);
-    $userFavorites = array_column($animalModel->getFavorites($_SESSION['user_id']), 'id');
+    $user = $userController->getUserById($_SESSION['user_id']);
+    $animals = $animalController->getFavorites($_SESSION['user_id']);
+    $userFavorites = array_column($animalController->getFavorites($_SESSION['user_id']), 'id');
 } catch (PDOException $e) {
     die("Error al obtener los animales: " . $e->getMessage());
 }

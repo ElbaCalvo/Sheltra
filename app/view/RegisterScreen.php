@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../../app/model/User.php";
+require_once "../../app/controller/UserController.php";
 require_once "../../config/dbConnection.php";
 
 try {
@@ -21,27 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $dni = trim($_POST['dni']);
     $address = trim($_POST['address']);
 
-    $user = new User($pdo);
-    $user->setUsername($username);
-    $user->setPhone($phone);
-    $user->setEmail($email);
-    $user->setPassword($password);
-    $user->setDni($dni);
-    $user->setAddress($address);
+    $userController = new UserController();
 
-
-    $errors = $user->validateRegister($username, $phone, $email, $password, $confirm_password, $dni, $address);
+    $errors = User::validateRegister($username, $phone, $email, $password, $confirm_password, $dni, $address);
 
     if (empty($errors)) {
-        if ($user->emailExists()) {
+        if ($userController->emailExists($email)) {
             $errors['email'] = "El correo electrónico ya está registrado.";
         }
     }
 
     if (empty($errors)) {
-        $user->setPassword(password_hash($password, PASSWORD_DEFAULT));
-
-        if ($user->addUser()) {
+        if ($userController->addUser($username, $email, $password, $dni, $phone, $address)) {
             $_SESSION['success'] = "Registro exitoso. Ahora puedes iniciar sesión.";
             header("Location: LoginScreen.php");
             exit();

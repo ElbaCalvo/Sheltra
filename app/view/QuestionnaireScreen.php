@@ -1,35 +1,31 @@
 <?php
 session_start();
 require_once "../../config/dbConnection.php";
-require_once "../../app/model/User.php";
-require_once "../../app/model/Animal.php";
-require_once "../../app/model/Questionnaire.php";
+require_once "../../app/controller/UserController.php";
+require_once "../../app/controller/AnimalController.php";
+require_once "../../app/controller/QuestionnaireController.php";
 
 if (!isset($_SESSION['user_id'])) { // Comprobar que el usuario ha iniciado sesión
     header("Location: LoginScreen.php");
     exit();
 }
 
-$pdo = getDBConnection();
-$questionnaireModel = new Questionnaire($pdo);
-$userModel = new User($pdo);
-$animalModel = new Animal($pdo);
-
 $success = false;
 $error = '';
 $errors = [];
 $user = null;
 
+$userController = new UserController();
+$animalController = new AnimalController();
+$questionnaireController = new QuestionnaireController();
+
 try {
-    $userModel = new User($pdo);
-    $user = $userModel->getUserById($_SESSION['user_id']);
+    $user = $userController->getUserById($_SESSION['user_id']);
 } catch (PDOException $e) {
     die("Error al obtener los datos: " . $e->getMessage());
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = $questionnaireModel->validateQuestionnaire($_POST);
-
     $pets_allowed = '';
     if (isset($_POST['vivienda_prop']) && $_POST['vivienda_prop'] === 'alquilada') {
         $pets_allowed = $_POST['permiten_mascotas'] ?? '';
@@ -37,7 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $data = [
         'id_user'         => $_SESSION['user_id'],
-        'id_animal'       => $_GET['id_animal'] ?? null,
+        'id_animal' => $_POST['id_animal'] ?? $_GET['id_animal'] ?? '',
         'date'            => date('Y-m-d'),
         'status'          => 'pendiente',
         'text'            => $_POST['motivo'] ?? '',
@@ -57,11 +53,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'post_adop'       => $_POST['seguimiento'] ?? ''
     ];
 
+    $errors = $questionnaireController->validateQuestionnaire($_POST);
+
+    echo '<pre>'; print_r($data); echo '</pre>';
+
     if (empty($errors)) {
-        if ($questionnaireModel->create($data)) {
-            if (!empty($data['id_animal'])) { // Cambiar el estado del animal a "Adopción no activa"
-                require_once "../../app/model/Animal.php";
-                $animalModel->setInactive($data['id_animal']);
+        if ($questionnaireController->submitQuestionnaire($data)) {
+            if (!empty($data['id_animal'])) {
+                $animalController->setInactive($data['id_animal']);
             }
             $success = true;
         } else {
@@ -119,7 +118,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 </div>
 
                 <form class="adoption-form" method="post">
-                    <input type="hidden" name="id_animal" value="<?php echo htmlspecialchars($_GET['id_animal'] ?? ''); ?>">
+                    <input type="hidden" name="id_animal" value="<?php
+                        echo htmlspecialchars(
+                            $_POST['id_animal'] ?? $_GET['id_animal'] ?? ''
+                        );
+                    ?>">
                     <h3>Datos personales</h3>
                     <div class="form-group">
                         <label>Nombre completo</label>

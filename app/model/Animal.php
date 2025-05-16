@@ -18,6 +18,42 @@ class Animal {
         $this->pdo = $pdo;
     }
 
+    public function setName($name) {
+        $this->name = $name;
+    }
+
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+    public function setAge($age) {
+        $this->age = $age;
+    }
+    
+    public function setSex($sex) {
+        $this->sex = $sex;
+    }
+
+    public function setSize($size) {
+        $this->size = $size;
+    }
+
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    public function setFoto($foto) {
+        $this->foto = $foto;
+    }
+
+    public function setEntryDate($entry_date) {
+        $this->entry_date = $entry_date;
+    }
+
+    public function setState($state) {
+        $this->state = $state;
+    }
+
     public function addAnimal($user_id) {
         $stmt = $this->pdo->prepare("
             INSERT INTO animals (name, type, age, sex, size, description, foto, entry_date, state, id_user)

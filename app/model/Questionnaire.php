@@ -9,20 +9,26 @@ class Questionnaire {
     }
 
     public function create($data) {
-        $stmt = $this->pdo->prepare("
-            INSERT INTO applications (
-                id_user, id_animal, date, status, text, resolution,
-                applic_name, applic_mail, applic_phone, applic_address,
-                housing_type, ownership_status, pets_allowed, outdoor_space,
-                pets_before, other_pets, maintenance, contract, post_adop
-            ) VALUES (
-                :id_user, :id_animal, :date, :status, :text, :resolution,
-                :applic_name, :applic_mail, :applic_phone, :applic_address,
-                :housing_type, :ownership_status, :pets_allowed, :outdoor_space,
-                :pets_before, :other_pets, :maintenance, :contract, :post_adop
-            )
-        ");
-        return $stmt->execute($data);
+    $stmt = $this->pdo->prepare("
+        INSERT INTO applications (
+            id_user, id_animal, date, status, text, resolution,
+            applic_name, applic_mail, applic_phone, applic_address,
+            housing_type, ownership_status, pets_allowed, outdoor_space,
+            pets_before, other_pets, maintenance, contract, post_adop
+        ) VALUES (
+            :id_user, :id_animal, :date, :status, :text, :resolution,
+            :applic_name, :applic_mail, :applic_phone, :applic_address,
+            :housing_type, :ownership_status, :pets_allowed, :outdoor_space,
+            :pets_before, :other_pets, :maintenance, :contract, :post_adop
+        )
+    ");
+    $result = $stmt->execute($data);
+    if (!$result) {
+        echo '<pre>';
+        print_r($stmt->errorInfo());
+        echo '</pre>';
+    }
+    return $result;
     }
 
     public function validateQuestionnaire($post) {
