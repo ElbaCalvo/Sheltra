@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-05-2025 a las 21:45:45
+-- Tiempo de generación: 16-05-2025 a las 22:27:52
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -56,11 +56,11 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (12, 2, 'Oreo', 'Gato', '5', 'Macho', 'Mediano', 'Oreo es tranquilo y se adapta muy bien a los cambios.', 'https://th.bing.com/th/id/R.d38ad5d057371d581e1e468e15524757?rik=4XU0PCl87C4cwQ&riu=http%3a%2f%2f24.media.tumblr.com%2ftumblr_m9gyv5mmT11rnno9uo1_1280.jpg&ehk=S9Ej%2boXajzO8nlaIDyuUXeFuPoImUDhBO%2b7WWDX9svE%3d&risl=&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
 (13, 2, 'Lola', 'Gato', '1', 'Hembra', 'Pequeño', 'Lola es muy juguetona y necesita mucha atención.', 'https://2.bp.blogspot.com/-urfzQM2s62s/UJm5podgrhI/AAAAAAAAjWQ/zPAogh7wvb8/s1600/522_503553456331157_1588333430_n.jpg', '2025-05-05', 'Adopción activa'),
 (14, 3, 'Tigre', 'Gato', '6', 'Macho', 'Grande', 'Tigre es independiente, ideal para adoptantes con experiencia.', 'https://live.staticflickr.com/411/19235139791_41cdffa802_b.jpg', '2025-05-05', 'Adopción activa'),
-(15, 3, 'Nala', 'Gato', '2', 'Hembra', 'Mediano', 'Nala es muy sociable con otros gatos.', 'https://wakyma.com/blog/wp-content/uploads/2017/09/Qu%C3%A9-es-la-neumon%C3%ADa-en-gatos', '2025-05-05', 'Adopción activa'),
+(15, 3, 'Nala', 'Gato', '2', 'Hembra', 'Mediano', 'Nala es muy sociable con otros gatos.', 'https://wakyma.com/blog/wp-content/uploads/2017/09/Qu%C3%A9-es-la-neumon%C3%ADa-en-gatos', '2025-05-05', 'Adopción no activa'),
 (16, 3, 'Coco', 'Gato', '3', 'Macho', 'Pequeño', 'Coco es juguetón y se lleva bien con perros pequeños.', 'https://th.bing.com/th/id/OIP.Zl_CdHA0KcEfo0pkDwMb_wHaGU?cb=iwc2&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
 (17, 2, 'Sombra', 'Gato', '8', 'Hembra', 'Grande', 'Sombra necesita un hogar tranquilo.', 'https://frusnatassar.se/____impro/1/onewebmedia/2023-08-30%2019.25.27.jpg?etag=%22f902-64ef7baa%22&sourceContentType=image%2Fjpeg&ignoreAspectRatio&resize=704%2B704&extract=0%2B0%2B703%2B624&quality=85', '2025-05-05', 'Adopción activa'),
 (18, 5, 'Félix', 'Gato', '5', 'Macho', 'Mediano', 'Félix es muy curioso y le encanta trepar.', 'https://amomeugato.blog.br/wp-content/uploads/2022/09/Chartreux-1024x686.jpg', '2025-05-05', 'Adopción activa'),
-(19, 5, 'Daisy', 'Gato', '6', 'Hembra', 'Grande', 'Gata curiosa y cariñosa, le gusta explorar y buscar rincones soleados para descansar. Ideal para familias que buscan una compañera tranquila y juguetona.', 'https://vancouverguardian.com/wp-content/uploads/2022/03/301910-624553c738020.jpeg', '2025-05-13', 'Adopción activa'),
+(19, 5, 'Daisy', 'Gato', '6', 'Hembra', 'Grande', 'Gata curiosa y cariñosa, le gusta explorar y buscar rincones soleados para descansar. Ideal para familias que buscan una compañera tranquila y juguetona.', 'https://vancouverguardian.com/wp-content/uploads/2022/03/301910-624553c738020.jpeg', '2025-05-13', 'Adopción no activa'),
 (20, 1, 'Rocky', 'Perro', '3', 'Macho', 'Grande', 'Rocky es enérgico y le encanta correr al aire libre.', 'https://www.hola.com/imagenes/estar-bien/20200525168642/razas-perro-border-collie/0-827-353/border-collie-m.jpg', '2025-05-05', 'Adopción activa'),
 (21, 1, 'Bella', 'Perro', '5', 'Hembra', 'Mediano', 'Bella es dulce y le encanta estar acompañada.', 'https://th.bing.com/th/id/OIP.WC0dupB4lXJLrFMP8zKpBQAAAA?cb=iwc2&w=402&h=402&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
 (22, 2, 'Toby', 'Perro', '2', 'Macho', 'Pequeño', 'Toby es perfecto para vivir en un piso.', 'https://th.bing.com/th/id/OIP.mqy_bmn4U4Fq-1pY0rzliQHaG8?cb=iwc2&w=640&h=600&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
@@ -87,7 +87,7 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (43, 3, 'Coco', 'Roedor', '3', 'Macho', 'Pequeño', 'Coco es un hamster muy activo y le gusta escalar.', 'https://blog.omlet.co.uk/wp-content/uploads/sites/9/2021/03/ddd_Easy-Resize.com_-e1616685291815.jpg', '2025-05-05', 'Adopción activa'),
 (44, 1, 'Gizmo', 'Roedor', '2', 'Macho', 'Mediano', 'Gizmo es un cobayo muy sociable y le gusta ser acariciado.', 'https://www.haustierblog.net/wp-content/uploads/2016/03/meerschweinchen-gehege-1024x768.jpg', '2025-05-05', 'Adopción activa'),
 (45, 2, 'Susi', 'Roedor', '4', 'Hembra', 'Pequeño', 'Susi es una hamster tranquila y le encanta dormir durante el día.', 'https://www.aniimoo.com/wp-content/uploads/2021/08/Que-faire-si-votre-Hamster-chute-07.jpg', '2025-05-05', 'Adopción activa'),
-(46, 5, 'Pepe', 'Roedor', '2', 'Macho', 'Grande', 'Pepe es un conejo cariñoso que disfruta de los mimos.', 'https://th.bing.com/th/id/OIP.ytMzGV-461HZXBL-hUkP4AHaGM?cb=iwc2&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción activa'),
+(46, 5, 'Pepe', 'Roedor', '2', 'Macho', 'Grande', 'Pepe es un conejo cariñoso que disfruta de los mimos.', 'https://th.bing.com/th/id/OIP.ytMzGV-461HZXBL-hUkP4AHaGM?cb=iwc2&rs=1&pid=ImgDetMain', '2025-05-05', 'Adopción no activa'),
 (47, 5, 'Lily', 'Roedor', '3', 'Hembra', 'Mediano', 'Lily es un cobayo juguetón y siempre está explorando.', 'https://einfachtierisch.de/media/cache/article_content/cms/2013/12/Meerschweinchen-Gansebluemchen.jpg', '2025-05-05', 'Adopción activa'),
 (48, 1, 'Tina', 'Ave', '2', 'Hembra', 'Mediano', 'Tina es un loro muy hablador y le encanta interactuar con la gente.', 'https://infoanimal.net/wp-content/uploads/2020/05/Loro-cabeza-gris.jpg', '2025-05-05', 'Adopción activa'),
 (49, 1, 'Kiara', 'Ave', '1', 'Hembra', 'Pequeño', 'Kiara es una canaria muy melodiosa y le encanta cantar por las mañanas.', 'https://t1.uc.ltmcdn.com/es/posts/6/3/8/como_saber_si_mi_canario_es_macho_o_hembra_39836_orig.jpg', '2025-05-05', 'Adopción activa'),
@@ -109,7 +109,8 @@ INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `d
 (65, 2, 'Coral', 'Pez', '4', 'Hembra', 'Mediano', 'Coral es un pez ángel que se adapta bien a acuarios comunitarios.', 'https://th.bing.com/th/id/R.a2ff7c4408ade4db3b09a21efdcfa060?rik=qoeTFFVtS0h8%2fA&riu=http%3a%2f%2fwww.mercafauna.com%2ffotos%2fanimales%2f53_pterophyllum_scalare01.jpg&ehk=MAH%2bF1bFTqIDYpTxQFSXBd0Z%2fNSc1OlaY%2bDeM43mor8%3d&risl=&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
 (66, 5, 'Aquarius', 'Pez', '2', 'Macho', 'Pequeño', 'Aquarius es un pez disco que disfruta de la calma en el agua.', 'https://th.bing.com/th/id/R.ccf9b819afe0ca253f15b98d79f45cd5?rik=9yS1dMqnTgKJnA&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
 (67, 5, 'Star', 'Pez', '3', 'Hembra', 'Mediano', 'Star es un pez koi muy sociable que le gusta estar con otros peces.', 'https://thelakehill.com/wp-content/uploads/2023/03/Koi-Fish.webp', '2025-05-05', 'Adopción activa'),
-(68, 2, 'Vainilla', 'Roedor', '2', 'Hembra', 'Pequeno', 'Vainilla es una conejita a la que le gusta comer y dormir, perfecta para familias tranquilas', 'https://i.pinimg.com/736x/23/95/36/23953669049a24da6e7cbdbddfac9e6e.jpg', '2025-05-15', 'Adopción activa');
+(68, 2, 'Vainilla', 'Roedor', '2', 'Hembra', 'Pequeno', 'Vainilla es una conejita a la que le gusta comer y dormir, perfecta para familias tranquilas', 'https://i.pinimg.com/736x/23/95/36/23953669049a24da6e7cbdbddfac9e6e.jpg', '2025-05-15', 'Adopción activa'),
+(70, 2, 'Pedro', 'Ave', '11m', 'Macho', 'Mediano', 'Pedro es un pato divertido y gracioso, le encanta correr y bañarse', 'https://static.nationalgeographic.es/files/styles/image_3200/public/336939012_834362331624638_3334172855623225389_n.webp?w=760&h=570', '2025-05-08', 'Adopción activa');
 
 -- --------------------------------------------------------
 
@@ -146,7 +147,9 @@ CREATE TABLE `applications` (
 
 INSERT INTO `applications` (`id`, `id_user`, `id_animal`, `date`, `status`, `text`, `resolution`, `applic_name`, `applic_mail`, `applic_phone`, `applic_address`, `housing_type`, `ownership_status`, `pets_allowed`, `outdoor_space`, `pets_before`, `other_pets`, `maintenance`, `contract`, `post_adop`) VALUES
 (1, 2, 5, '2025-05-15', 'pendiente', 'Porque me encantan los animales y vivo sola así que quiero tener compañía', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'casa', 'propia', '', 'si', 'si', 'no', 'si', 'si', 'si'),
-(3, 2, 6, '2025-05-15', 'pendiente', 'Quiero dar amor sisi', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'piso', 'alquilada', 'si', 'no', 'no', 'no', 'si', 'si', 'si');
+(3, 2, 6, '2025-05-15', 'pendiente', 'Quiero dar amor sisi', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'piso', 'alquilada', 'si', 'no', 'no', 'no', 'si', 'si', 'si'),
+(12, 2, 46, '2025-05-16', 'status', 'nnznznnxnxnznxnxzmzmnxmznxzmmznxm', '', 'Paula Gomez Lopez', 'paula@gmail.com', '222 22 22 22', 'Calle Paula, 22', 'piso', 'alquilada', 'si', 'no', 'si', 'no', 'si', 'si', 'no'),
+(13, 2, 46, '2025-05-16', 'status', 'nnznznnxnxnznxnxzmzmnxmznxzmmznxm', '', 'Paula Gomez Lopez', 'paula@gmail.com', '222 22 22 22', 'Calle Paula, 22', 'piso', 'propia', '', 'no', 'si', 'no', 'si', 'si', 'no');
 
 -- --------------------------------------------------------
 
@@ -167,7 +170,8 @@ CREATE TABLE `donations` (
 
 INSERT INTO `donations` (`id`, `id_user`, `id_shelter`, `amount`) VALUES
 (1, 5, 2, 40),
-(2, 5, 5, 15);
+(2, 5, 5, 15),
+(3, 2, 5, 11);
 
 -- --------------------------------------------------------
 
@@ -191,10 +195,12 @@ INSERT INTO `favorites` (`id`, `id_user`, `id_animal`) VALUES
 (10, 2, 9),
 (11, 2, 44),
 (12, 2, 64),
-(14, 2, 53),
 (15, 2, 19),
-(18, 2, 68),
-(20, 2, 26);
+(21, 2, 29),
+(23, 2, 37),
+(24, 2, 22),
+(25, 2, 68),
+(26, 2, 52);
 
 -- --------------------------------------------------------
 
@@ -249,9 +255,10 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `DNI`, `phone`, `add
 (1, 'Lua', 'lua@gmail.com', '$2y$10$sHFYY94N.JkGwONB61zjIeXmGL939aa2.XyM2Z6q0MqmUxRq/2x4.', '12345678K', 123456789, 'Calle Lua, 44'),
 (2, 'Vega', 'vega@gmail.com', '$2y$10$RBR6M9v40Xx7HSThTlyAAu/eVC8soHu.6S5do5qxGLn1UC98Lzrxy', '98765432S', 987654321, 'Calle Vega, 33'),
 (3, 'Sonia', 'sonia@gmail.com', '$2y$10$5dYH6jzgi7pxQD0YvcOci./3ZapZ52TmsJC2ucwExloVWX6MSKlRe', '33333333F', 333333333, 'Calle Sonia, 11'),
-(5, 'María', 'maria@gmail.com', '$2y$10$Ry4B8KPHAEj7GUkYSDlBFuC9fZn3FiOkkB6hPHUgQ1Jz9sFxNrwEa', '77777777B', 777777777, 'Calle María, 77'),
 (8, 'Susi', 'susi@gmail.com', '$2y$10$c07Y4XLaehsbztbidhbZmOQCIdozv3FjjCsf8sed/z59p2Nu2ssXS', '88888888L', 888888888, 'Calle Susi, 88'),
-(9, 'Ana', 'ana@gmail.com', '$2y$10$0D3RQHaWyK5qRZMxn4QQEOmX2PS4ySiyv6ljMPi12vCGEtaET.Ln2', '44444444M', 444444444, 'Calle Ana, 22');
+(9, 'Ana', 'ana@gmail.com', '$2y$10$0D3RQHaWyK5qRZMxn4QQEOmX2PS4ySiyv6ljMPi12vCGEtaET.Ln2', '44444444M', 444444444, 'Calle Ana, 22'),
+(12, 'Julia', 'julia@gmail.com', '$2y$10$LNhz7ke.KBMb/MfHGPsfP.UMG0M2kLGpO4X79oSnphpTezKnwMzGy', '55555555U', 555555555, 'Calle julia, 55'),
+(13, 'Beth', 'beth@gmail.com', '$2y$10$mZfoxmvzEupBdKkFocJmyuMsakeM/V6qt3y2Q1J02X/Et6pxIaViO', '22222222X', 222222222, 'Calle Beth, 22');
 
 --
 -- Índices para tablas volcadas
@@ -301,25 +308,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT de la tabla `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT de la tabla `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT de la tabla `shelters`
@@ -331,7 +338,7 @@ ALTER TABLE `shelters`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
