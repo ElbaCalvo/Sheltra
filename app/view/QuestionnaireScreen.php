@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'id_user'         => $_SESSION['user_id'],
         'id_animal' => $_POST['id_animal'] ?? $_GET['id_animal'] ?? '',
         'date'            => date('Y-m-d'),
-        'status'          => 'status',
+        'status'          => 'pendiente',
         'text'            => $_POST['text'] ?? '',
         'resolution'      => '',
         'applic_name'     => $_POST['applic_name'] ?? '',

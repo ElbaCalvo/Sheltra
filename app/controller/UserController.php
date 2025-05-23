@@ -67,8 +67,10 @@ class UserController {
         exit();
     }
 
-    public function login($email, $password) {
-        $user = new User(getDBConnection());
+    public function login($email, $password, User $user = null) {
+        if ($user === null) {
+            $user = new User(getDBConnection());
+        }
         $user->setEmail($email);
         $user->setPassword($password);
         if ($user->checkUsuario()) {
