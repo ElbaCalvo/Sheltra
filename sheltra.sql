@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-05-2025 a las 22:54:09
+-- Tiempo de generación: 27-05-2025 a las 17:38:13
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -48,9 +48,9 @@ CREATE TABLE `animals` (
 INSERT INTO `animals` (`id`, `id_user`, `name`, `type`, `age`, `sex`, `size`, `description`, `foto`, `entry_date`, `state`) VALUES
 (5, 1, 'Nube', 'Roedor', '1', 'Hembra', 'Grande', 'Nube es un conejo juguetón y curioso. Le encanta explorar y comer zanahorias. Es ideal para familias con niños pequeños.', 'https://content.elmueble.com/medio/2025/03/18/conejo-enano-belier_0c663703_250318172443_900x900.webp', '2025-05-05', 'Adopción activa'),
 (6, 3, 'Luna', 'Gato', '3', 'Hembra', 'Pequeno', 'Luna es una gata juguetona y curiosa. Le encanta perseguir luces y descansar en lugares altos. Es ideal para familias que buscan una mascota activa y cariñosa.', 'https://www.zooplus.es/magazine/wp-content/uploads/2022/01/Psicologia-felina.jpeg', '2025-05-05', 'Adopción no activa'),
-(7, 3, 'Max', 'Perro', '4', 'Macho', 'Mediano', 'Max es un perro leal y protector. Le encanta jugar al aire libre y es perfecto para familias activas que buscan un compañero energético.', 'https://panchoskitchen.com/cdn/shop/articles/perro-con-la-lengua-afuera-mirando-hacia-arriba.png?v=1677637524', '2025-05-05', 'Adopción activa'),
+(7, 3, 'Max', 'Perro', '4', 'Macho', 'Mediano', 'Max es un perro leal y protector. Le encanta jugar al aire libre y es perfecto para familias activas que buscan un compañero energético.', 'https://panchoskitchen.com/cdn/shop/articles/perro-con-la-lengua-afuera-mirando-hacia-arriba.png?v=1677637524', '2025-05-05', 'Adopción no activa'),
 (8, 1, 'Simba', 'Gato', '7', 'Macho', 'Mediano', 'Simba es un gato curioso y juguetón. Le encanta explorar y es ideal para hogares que buscan una mascota activa y divertida.', 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg', '2025-05-05', 'Adopción activa'),
-(9, 2, 'Shelly', 'Reptil', '10', 'Hembra', 'Grande', 'Shelly es una tortuga tranquila y fácil de cuidar. Es perfecta para personas que buscan una mascota de bajo mantenimiento.', 'https://cdn0.expertoanimal.com/es/posts/6/3/3/especies_de_tortugas_de_tierra_20336_600.webp', '2025-05-05', 'Adopción activa'),
+(9, 2, 'Shelly', 'Reptil', '10', 'Hembra', 'Grande', 'Shelly es una tortuga tranquila y fácil de cuidar. Es perfecta para personas que buscan una mascota de bajo mantenimiento.', 'https://cdn0.expertoanimal.com/es/posts/6/3/3/especies_de_tortugas_de_tierra_20336_600.webp', '2025-05-05', 'Adopción no activa'),
 (10, 1, 'Tom', 'Gato', '2', 'Macho', 'Mediano', 'Tom es un gato simpático y activo, perfecto para familias con niños.', 'https://i.pinimg.com/originals/98/f5/7d/98f57d66e977bc3d5a0c9443ebe6a3db.jpg', '2025-05-05', 'Adopción activa'),
 (11, 1, 'Mía', 'Gato', '4', 'Hembra', 'Grande', 'Mía es muy cariñosa y le encanta dormir en lugares soleados.', 'https://th.bing.com/th/id/R.34934b6e6728657008fef33bcd2389dd?rik=wSoAwA5TxYad3g&riu=http%3a%2f%2f5b0988e595225.cdn.sohucs.com%2fq_mini%2cc_zoom%2cw_640%2fimages%2f20170724%2fb036660228b442da8213f83e1f4e7b04.jpeg&ehk=T5KUl%2btkwIoe55aNvrEYyPgDQnll3OqO1ONu7WZsTKY%3d&risl=&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
 (12, 2, 'Oreo', 'Gato', '5', 'Macho', 'Mediano', 'Oreo es tranquilo y se adapta muy bien a los cambios.', 'https://th.bing.com/th/id/R.d38ad5d057371d581e1e468e15524757?rik=4XU0PCl87C4cwQ&riu=http%3a%2f%2f24.media.tumblr.com%2ftumblr_m9gyv5mmT11rnno9uo1_1280.jpg&ehk=S9Ej%2boXajzO8nlaIDyuUXeFuPoImUDhBO%2b7WWDX9svE%3d&risl=&pid=ImgRaw&r=0', '2025-05-05', 'Adopción activa'),
@@ -141,16 +141,6 @@ CREATE TABLE `applications` (
   `post_adop` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Volcado de datos para la tabla `applications`
---
-
-INSERT INTO `applications` (`id`, `id_user`, `id_animal`, `date`, `status`, `text`, `resolution`, `applic_name`, `applic_mail`, `applic_phone`, `applic_address`, `housing_type`, `ownership_status`, `pets_allowed`, `outdoor_space`, `pets_before`, `other_pets`, `maintenance`, `contract`, `post_adop`) VALUES
-(1, 2, 5, '2025-05-15', 'pendiente', 'Porque me encantan los animales y vivo sola así que quiero tener compañía', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'casa', 'propia', '', 'si', 'si', 'no', 'si', 'si', 'si'),
-(3, 2, 6, '2025-05-15', 'pendiente', 'Quiero dar amor sisi', '', 'Vega Pérez Puente', 'vega@gmail.com', '555 55 55 55', 'Calle Vega, 55', 'piso', 'alquilada', 'si', 'no', 'no', 'no', 'si', 'si', 'si'),
-(12, 2, 46, '2025-05-16', 'status', 'nnznznnxnxnznxnxzmzmnxmznxzmmznxm', '', 'Paula Gomez Lopez', 'paula@gmail.com', '222 22 22 22', 'Calle Paula, 22', 'piso', 'alquilada', 'si', 'no', 'si', 'no', 'si', 'si', 'no'),
-(13, 2, 46, '2025-05-16', 'status', 'nnznznnxnxnznxnxzmzmnxmznxzmmznxm', '', 'Paula Gomez Lopez', 'paula@gmail.com', '222 22 22 22', 'Calle Paula, 22', 'piso', 'propia', '', 'no', 'si', 'no', 'si', 'si', 'no');
-
 -- --------------------------------------------------------
 
 --
@@ -171,7 +161,8 @@ CREATE TABLE `donations` (
 INSERT INTO `donations` (`id`, `id_user`, `id_shelter`, `amount`) VALUES
 (1, 8, 2, 40),
 (2, 8, 5, 15),
-(3, 2, 5, 11);
+(3, 2, 5, 11),
+(7, 2, 2, 40);
 
 -- --------------------------------------------------------
 
@@ -259,7 +250,9 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `DNI`, `phone`, `add
 (9, 'Ana', 'ana@gmail.com', '$2y$10$0D3RQHaWyK5qRZMxn4QQEOmX2PS4ySiyv6ljMPi12vCGEtaET.Ln2', '44444444M', 444444444, 'Calle Ana, 22'),
 (12, 'Julia', 'julia@gmail.com', '$2y$10$LNhz7ke.KBMb/MfHGPsfP.UMG0M2kLGpO4X79oSnphpTezKnwMzGy', '55555555U', 555555555, 'Calle julia, 55'),
 (13, 'Beth', 'beth@gmail.com', '$2y$10$mZfoxmvzEupBdKkFocJmyuMsakeM/V6qt3y2Q1J02X/Et6pxIaViO', '22222222X', 222222222, 'Calle Beth, 22'),
-(14, 'Juan', 'juan@example.com', '$2y$10$hoEbBmDxZLJE23.DaGejaO/JCI.zXKjlhzznHVBLBP/RZ6biYU3i6', '12345678L', 123456789, 'Calle Juan, 123');
+(14, 'Juan', 'juan@example.com', '$2y$10$hoEbBmDxZLJE23.DaGejaO/JCI.zXKjlhzznHVBLBP/RZ6biYU3i6', '12345678L', 123456789, 'Calle Juan, 123'),
+(25, 'Noa', 'noa@gmail.com', '$2y$10$nM8n1pG1bVPHrw3cRrt7yOrey6EJemU90RIazkaCifxrIDbFk4zAy', '33333333L', 333333333, 'Calle Noa, 333'),
+(28, 'Elba', 'elba@gmail.com', '$2y$10$0CSbDH.XTfHnkBXerwGk1uhF1SsPNMLqLJuGz6vbZGNEXtCXxWezW', '12345678K', 123456789, 'Calle Elba, 123');
 
 --
 -- Índices para tablas volcadas
@@ -316,25 +309,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT de la tabla `animals`
 --
 ALTER TABLE `animals`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT de la tabla `applications`
 --
 ALTER TABLE `applications`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT de la tabla `donations`
 --
 ALTER TABLE `donations`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `favorites`
 --
 ALTER TABLE `favorites`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT de la tabla `shelters`
@@ -346,7 +339,7 @@ ALTER TABLE `shelters`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(225) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- Restricciones para tablas volcadas
@@ -370,7 +363,7 @@ ALTER TABLE `applications`
 --
 ALTER TABLE `donations`
   ADD CONSTRAINT `donations_ibfk_1` FOREIGN KEY (`id_shelter`) REFERENCES `shelters` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `donations_ibfk_2` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `donations_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `favorites`
